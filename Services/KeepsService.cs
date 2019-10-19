@@ -9,11 +9,19 @@ namespace Keepr.Services
   public class KeepsService
   {
     private readonly KeepsRepository _repo;
-    public KeepsService(KeepsRepository repo)
+    private readonly AccountRepository _aRepo;
+    public KeepsService(KeepsRepository repo, AccountRepository aRepo)
     {
       _repo = repo;
+      _aRepo = aRepo;
     }
+
     public IEnumerable<Keep> Get()
+    {
+      return _repo.Get();
+    }
+
+    public IEnumerable<Keep> Get(string UserId)
     {
       return _repo.Get();
     }
@@ -23,16 +31,21 @@ namespace Keepr.Services
       if (exists == null) { throw new Exception("Invalid Id"); }
       return exists;
     }
-    public User GetUsers(string id)
-    {
-      User user = _repo.GetUsers(id);
-      if (user == null) { throw new Exception("Invalid Request"); }
-      user.Hash = null;
-      return user;
-    }
+
+
+
+
+    // public User GetUserById(string id)
+    // {
+    //   User user = _repo.GetUserById(id);
+    //   if (user == null) { throw new Exception("Invalid Request"); }
+    //   user.Hash = null;
+    //   return user;
+    // }
 
     public Keep Create(Keep newKeep)
     {
+
       int id = _repo.Create(newKeep);
       newKeep.Id = id;
       return newKeep;
@@ -56,9 +69,11 @@ namespace Keepr.Services
       return "the keep was terminated";
     }
 
-    // internal object GetUsers(string id)
+    // public User GetUser(string UserId)
     // {
-    //   throw new NotImplementedException();
+    //   User exists = _repo.Get(UserId);
+    //   if (exists == null) { throw new Exception("Invalid Id"); }
+    //   return exists;
     // }
   }
 }

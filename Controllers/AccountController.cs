@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
@@ -81,6 +82,18 @@ namespace Keepr.Controllers
       {
         await HttpContext.SignOutAsync();
         return Unauthorized(e.Message);
+      }
+    }
+    [HttpGet("keeps/{id}")]
+    public ActionResult<IEnumerable<Keep>> GetKeeps(string userId)
+    {
+      try
+      {
+        return Ok(_as.GetKeeps(userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }
