@@ -9,7 +9,7 @@ namespace Keepr.Interfaces
     string Img { get; set; }
 
     int Id { get; set; }
-    int UserId { get; set; }
+    string UserId { get; set; }
 
     bool isprivate { get; set; }
 

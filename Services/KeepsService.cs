@@ -23,6 +23,13 @@ namespace Keepr.Services
       if (exists == null) { throw new Exception("Invalid Id"); }
       return exists;
     }
+    public User GetUsers(string id)
+    {
+      User user = _repo.GetUsers(id);
+      if (user == null) { throw new Exception("Invalid Request"); }
+      user.Hash = null;
+      return user;
+    }
 
     public Keep Create(Keep newKeep)
     {
@@ -48,5 +55,10 @@ namespace Keepr.Services
       _repo.Delete(id);
       return "the keep was terminated";
     }
+
+    // internal object GetUsers(string id)
+    // {
+    //   throw new NotImplementedException();
+    // }
   }
 }

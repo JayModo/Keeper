@@ -30,10 +30,16 @@ namespace Keepr.Repositories
     {
       string sql = @"
       INSERT INTO keeps
-      (name, userId, img, isPrivate, description)
+      (name, img, isPrivate, description)
       VALUES
-      (@Name,@UserId,@Img,@IsPrivate,@Description);";
+      (@Name,@Img,@IsPrivate,@Description);";
       return _db.ExecuteScalar<int>(sql, newKeep);
+    }
+
+    internal User GetUsers(string id)
+    {
+      string sql = "SELECT * FROM user WHERE Id = @id";
+      return _db.QueryFirstOrDefault<User>(sql, new { id });
     }
 
     public void Edit(Keep keep)
@@ -42,7 +48,7 @@ namespace Keepr.Repositories
       UPDATE keeps
       SET
       name = @Name,
-       userId = @UserId,
+     
         img = @Img,
         isPrivate = @IsPrivate,
          description = @Description)
@@ -55,5 +61,11 @@ namespace Keepr.Repositories
       string sql = "DELETE FROM keeps WHERE id = @id";
       _db.Execute(sql, new { id });
     }
+
+    // internal User GetUserById(string id)
+    // {
+    //   string sql = "SELECT * FROM user WHERE id = @id";
+    //   return _db.QueryFirstOrDefault<User>(sql, new { id });
+    // }
   }
 }

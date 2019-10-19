@@ -71,5 +71,5 @@ USE pinkeeper;
 -- -- USE THIS TO CLEAN OUT YOUR DATABASE
 -- DROP TABLE IF EXISTS vaultkeeps;
 -- DROP TABLE IF EXISTS vaults;
--- DROP TABLE IF EXISTS keeps;
+-- DROP TABLE keeps;
 -- DROP TABLE IF EXISTS users;
