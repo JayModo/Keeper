@@ -39,7 +39,7 @@ namespace Keepr.Controllers
 
 
     [HttpGet("{id}")]
-    public ActionResult<IEnumerable<Keep>> GetById(int id)
+    public ActionResult<Keep> Get(int id)
     {
       try
       {
@@ -47,7 +47,6 @@ namespace Keepr.Controllers
       }
       catch (Exception e)
       {
-
         return BadRequest(e.Message);
       }
     }
@@ -56,8 +55,8 @@ namespace Keepr.Controllers
     {
       try
       {
-        var uid = HttpContext.User.FindFirstValue("Id");
-        return Ok(_ks.GetUser(uid));
+        var id = HttpContext.User.FindFirstValue("Id");
+        return Ok(_ks.GetUser(id));
       }
       catch (Exception e)
       {
@@ -125,7 +124,7 @@ namespace Keepr.Controllers
     {
       try
       {
-
+        newKeep.Id = id;
         return Ok(_ks.Edit(newKeep));
       }
       catch (Exception e)

@@ -1,5 +1,5 @@
 USE pinkeeper;
-
+--  DROP TABLE keeps;
 -- CREATE TABLE user (
 --     id VARCHAR(255) NOT NULL,
 --     username VARCHAR(255) NOT NULL,

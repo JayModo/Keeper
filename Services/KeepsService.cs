@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using Keepr.Models;
 using Keepr.Repositories;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
+
+
 
 namespace Keepr.Services
 {
@@ -24,9 +23,9 @@ namespace Keepr.Services
       return _repo.Get();
     }
 
-    public IEnumerable<Keep> GetUser(string uid)
+    public IEnumerable<Keep> GetUser(string id)
     {
-      return _repo.GetUser(uid);
+      return _repo.GetUser(id);
     }
     public Keep Get(int id)
     {
@@ -34,17 +33,6 @@ namespace Keepr.Services
       if (exists == null) { throw new Exception("Invalid Id"); }
       return exists;
     }
-
-
-
-
-    // public User GetUserById(string id)
-    // {
-    //   User user = _repo.GetUserById(id);
-    //   if (user == null) { throw new Exception("Invalid Request"); }
-    //   user.Hash = null;
-    //   return user;
-    // }
 
     public Keep Create(Keep newKeep)
     {
@@ -58,8 +46,11 @@ namespace Keepr.Services
     {
       Keep keep = _repo.Get(editKeep.Id);
       if (keep == null) { throw new Exception("Invalid Id"); }
+      keep = editKeep;
       keep.Name = editKeep.Name;
-      keep.UserId = editKeep.UserId;
+      keep.Img = editKeep.Img;
+      keep.Description = editKeep.Description;
+      keep.IsPrivate = editKeep.IsPrivate;
       _repo.Edit(keep);
       return keep;
     }

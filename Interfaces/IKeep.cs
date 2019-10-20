@@ -11,7 +11,7 @@ namespace Keepr.Interfaces
     int Id { get; set; }
     string UserId { get; set; }
 
-    bool isprivate { get; set; }
+    bool IsPrivate { get; set; }
 
     int views { get; set; }
     int Shares { get; set; }
