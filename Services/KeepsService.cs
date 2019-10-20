@@ -62,12 +62,5 @@ namespace Keepr.Services
       _repo.Delete(id);
       return "the keep was terminated";
     }
-
-    // public User GetUser(string UserId)
-    // {
-    //   User exists = _repo.Get(UserId);
-    //   if (exists == null) { throw new Exception("Invalid Id"); }
-    //   return exists;
-    // }
   }
 }

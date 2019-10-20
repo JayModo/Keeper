@@ -65,43 +65,6 @@ namespace Keepr.Controllers
     }
 
 
-
-    // FIXME this is The problem
-    // [Authorize]
-    // [HttpGet("Authenticate")]
-    // public async Task<ActionResult<User>> Authenticate()
-    // {
-    //   try
-    //   {
-    //     //NOTE THIS IS HOW YOU GET THE USER ID (node => req.session.uid)
-    //     var n = HttpContext.User.FindFirstValue(ClaimTypes.Name);
-    //     var id = HttpContext.User.FindFirstValue("Id");
-    //     User user = _ks.GetUserById(id);
-    //     return Ok(user);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     await HttpContext.SignOutAsync();
-    //     return Unauthorized(e.Message);
-    //   }
-    // }
-    //end of the problem
-
-    // [HttpGet("{id}/user")]
-    // public ActionResult<IEnumerable<User>> GetUsers(string id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_ks.GetUsers(id));
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
-
-
-
     [Authorize]
     [HttpPost]
     public ActionResult<Keep> Create([FromBody] Keep newKeep)
@@ -147,18 +110,6 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-    // [HttpGet("{id}/user")]
-    // public ActionResult<IEnumerable<User>> GetUsers(string id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_ks.GetUsers(id));
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
 
 
   }
