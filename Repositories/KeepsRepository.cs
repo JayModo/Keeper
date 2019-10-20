@@ -32,14 +32,14 @@ namespace Keepr.Repositories
       INSERT INTO keeps
       (name, img,userId, isPrivate, description)
       VALUES
-      (@Name,@Img,@UserId,@IsPrivate,@Description);";
+      (@Name,@Img,@UserId,@IsPrivate,@Description);SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, newKeep);
     }
 
-    internal User GetUser(string id)
+    public IEnumerable<Keep> GetUser(string uid)
     {
       string sql = "SELECT * FROM keeps WHERE userId = @UserId";
-      return _db.QueryFirstOrDefault<User>(sql, new { id });
+      return _db.Query<Keep>(sql, new { uid });
     }
 
     public void Edit(Keep keep)
@@ -48,11 +48,10 @@ namespace Keepr.Repositories
       UPDATE keeps
       SET
       name = @Name,
-     
-        img = @Img,
+      img = @Img,
         isPrivate = @IsPrivate,
          description = @Description)
-      WHERE id = @Id";
+      WHERE id = @id";
       _db.Execute(sql, keep);
     }
 
@@ -62,11 +61,6 @@ namespace Keepr.Repositories
       _db.Execute(sql, new { id });
     }
 
-    internal User GetUserById(string id)
-    {
-      string sql = "SELECT * FROM user WHERE id = @id";
-      return _db.QueryFirstOrDefault<User>(sql, new { id });
-    }
     public IEnumerable<Keep> GetUsersByKeepId(string userId)
     {
       string sql = "SELECT * FROM user WHERE userId = @id";

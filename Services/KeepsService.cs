@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Keepr.Models;
 using Keepr.Repositories;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Keepr.Services
 {
@@ -16,14 +19,14 @@ namespace Keepr.Services
       _aRepo = aRepo;
     }
 
-    public IEnumerable<Keep> Get()
+    public IEnumerable<Keep> GetAll()
     {
       return _repo.Get();
     }
 
-    public IEnumerable<Keep> Get(string UserId)
+    public IEnumerable<Keep> GetUser(string uid)
     {
-      return _repo.Get();
+      return _repo.GetUser(uid);
     }
     public Keep Get(int id)
     {

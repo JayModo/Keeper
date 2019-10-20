@@ -24,11 +24,11 @@ namespace Keepr.Controllers
       _ks = ks;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
+    public ActionResult<IEnumerable<Keep>> GetAll()
     {
       try
       {
-        return Ok(_ks.Get());
+        return Ok(_ks.GetAll());
       }
       catch (Exception e)
       {
@@ -38,7 +38,7 @@ namespace Keepr.Controllers
 
 
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public ActionResult<IEnumerable<Keep>> GetById(int id)
     {
       try
@@ -51,12 +51,13 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpGet("{id}")]
-    public ActionResult<User> Get(string id)
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Keep>> GetUser()
     {
       try
       {
-        return Ok(_ks.Get(id));
+        var uid = HttpContext.User.FindFirstValue("Id");
+        return Ok(_ks.GetUser(uid));
       }
       catch (Exception e)
       {
