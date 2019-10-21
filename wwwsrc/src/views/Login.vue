@@ -35,9 +35,9 @@
                 }
             };
         },
-        beforeCreate(){
-            if(this.$store.state.user.id){
-                this.$router.push({name: "home"})
+        beforeCreate() {
+            if (this.$store.state.Auth.user._id) {
+                this.$router.push({ name: "home" })
             }
         },
         methods: {
@@ -50,3 +50,8 @@
         }
     };
 </script>
+<style>
+    .Login {
+        background-color: aquamarine;
+    }
+</style>

@@ -38,7 +38,7 @@ export default {
         let user = await AuthService.Register(creds);
         commit("setUser", user);
         dispatch("getUsers")
-        router.push({ name: "boards" });
+        router.push({ name: "login" });
       } catch (e) {
         console.warn(e.message);
       }
@@ -48,7 +48,7 @@ export default {
         let user = await AuthService.Login(creds);
         commit("setUser", user);
         dispatch("getUsers")
-        router.push({ name: "boards" });
+        router.push({ name: "home" });
       } catch (e) {
         console.warn(e.message);
       }
@@ -67,10 +67,11 @@ export default {
 
     async getUsers({ commit }) {
       try {
-        let endPoint = `users`
+        debugger
+        let endPoint = `user`
         let axiosRes = await api.get(endPoint)
         let users = axiosRes.data
-        commit('setUsers', users)
+        commit('setUser', users)
       } catch (error) {
         console.error('store-modules > actions > getUsers()')
       }
@@ -78,7 +79,7 @@ export default {
 
     async editUser({ commit }, user) {
       try {
-        let endPoint = `users`
+        let endPoint = `user`
         let axiosRes = await api.put(endPoint, user)
         let updatedUser = axiosRes.data
         commit('setUser', updatedUser)
