@@ -1,5 +1,5 @@
 <template>
-  <div class="keepTile">
+  <div class="keep-tile">
 
 
   </div>
@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'keepTile',
+    name: 'keep-tile',
     data() {
       return {}
     },
