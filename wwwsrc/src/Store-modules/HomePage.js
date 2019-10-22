@@ -21,14 +21,29 @@ let api = Axios.create({
 
 export default {
   state: {
-    keeps: []
+    keeps: [],
+    activeKeep: {}
   },
   mutations: {
+    setActiveKeep(state, payload) {
+      state.activeKeep = payload
+    },
     setKeeps(state, payload) {
-      state.keep = payload
+      state.keeps = payload
     }
   },
   actions: {
+    async getKeepById({ commit }, payload) {
+      try {
+        debugger
+        let axiosRes = await api.get(`Id`)
+        commit('setActiveKeep', axiosRes)
+      } catch (error) {
+
+      }
+    },
+
+
     async getKeeps({ commit, dispatch, state }) {
       try {
         let axiosRes = await api.get("");
@@ -52,16 +67,6 @@ export default {
     },
 
 
-    async generic({ commit }, value) {
-      try {
-        let endPoint = `${value}`
-        let axiosResponse = await api.get(endPoint)
-        let data = axiosResponse.data
 
-        commit('generic', data)
-      } catch (error) {
-        console.error('template.js actions: generic()')
-      }
-    }
   }
 }

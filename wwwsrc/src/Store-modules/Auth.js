@@ -71,7 +71,7 @@ export default {
         let endPoint = `user`
         let axiosRes = await api.get(endPoint)
         let users = axiosRes.data
-        commit('setUser', users)
+        commit('setUsers', users)
       } catch (error) {
         console.error('store-modules > actions > getUsers()')
       }
