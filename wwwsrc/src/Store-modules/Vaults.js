@@ -35,22 +35,20 @@ export default {
   actions: {
     async getVaults({ commit, dispatch, state }) {
       try {
-        debugger
         let axiosRes = await api.get("");
         let vaults = axiosRes.data;
         commit("setVaults", vaults);
-        // state.vaults.forEach(vault => {
-        //   let vaultsId = vaults._id
-        //   dispatch(vaults)
-        // });
+        state.vaults.forEach(vault => {
+          let vaultsId = vaults._id
+          dispatch(vaultsId)
+        });
       } catch (error) {
-        router.push("/");
+        router.push("/vaults");
       }
     },
 
 
     async addVaults({ commit, dispatch }, vaultData) {
-      debugger
       let axiosRes = await api.post("", vaultData);
       if (axiosRes) {
         dispatch("getVaults");

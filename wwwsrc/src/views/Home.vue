@@ -27,6 +27,7 @@
         <h5 class="card-title">{{keep.name}}</h5>
         <p class="card-text">{{keep.description}}</p>
         <button></i>Keep It</button>
+
         <img data-toggle="modal" :src="keep.img" />
 
       </div>
