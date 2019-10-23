@@ -33,11 +33,12 @@ export default {
     }
   },
   actions: {
-    async getKeepById({ commit }, payload) {
+    async getKeepById({ commit }, keepId) {
       try {
         debugger
-        let axiosRes = await api.get(`Id`)
-        commit('setActiveKeep', axiosRes)
+        let endPoint = `${keepId}`
+        let axiosRes = await api.get(endPoint)
+        commit('setActiveKeep', axiosRes.data)
       } catch (error) {
 
       }

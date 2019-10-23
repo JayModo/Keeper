@@ -20,17 +20,18 @@
     </form>
     <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
 
-      <!-- <keepComp v-for="keep in keeps" :keepProp="keep" :key="keep._id" /> -->
       <div class="card" style="width: 16rem;">
-        <h4 v-on:click="keep.views += 1">Views {{keep.views}}</h4>
         <h4>Keep </h4>
         <h5 class="card-title">{{keep.name}}</h5>
         <p class="card-text">{{keep.description}}</p>
         <button></i>Keep It</button>
         <img class="btn" @click="openModal" :src="keep.img" />
-        <modal v-model="modalOpen">
+        <modal v-model="modalOpen" onclick.prevent="modalKeep">
+          <img :src="keep.img" alt="">
+          <h4 v-on:click="keep.views += 1">Views {{keep.views}}</h4>
           <h5 class="card-title">{{keep.name}}</h5>
-          <p class="card-text">{{keep.description}}</p>
+          <p>{{keep.description}}</p>
+
         </modal>
 
       </div>
@@ -58,6 +59,9 @@
     },
     data() {
       return {
+        modalKeep: {
+          Keep: Object,
+        },
         modalOpen: false,
         newKeep: {
           name: "",
@@ -85,6 +89,7 @@
     methods: {
       openModal() {
         this.modalOpen = !this.modalOpen;
+
       },
 
       viewKeeps() {

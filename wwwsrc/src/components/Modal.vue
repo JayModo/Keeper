@@ -1,11 +1,15 @@
 <template>
   <div class="modal" v-show="value">
     <div class="container">
+      <div class="modal-content">
+
+        <slot>
 
 
-      <div class="modal-body">
-        {{value}}
+        </slot>
+        <div class="modal-content">
 
+        </div>
       </div>
       <button @click.prevent="cancel" class="mt-3 border-b border-teal font-semibold">Close</button>
     </div>
@@ -19,6 +23,7 @@
     name: 'modal',
     data() {
       return {
+
         openModal: true
       }
     },
