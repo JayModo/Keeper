@@ -39,10 +39,10 @@ export default {
         let axiosRes = await api.get("");
         let vaults = axiosRes.data;
         commit("setVaults", vaults);
-        state.vaults.forEach(vault => {
-          let vaultId = vault._id
-          dispatch(vaultId)
-        });
+        // state.vaults.forEach(vault => {
+        //   let vaultsId = vaults._id
+        //   dispatch(vaults)
+        // });
       } catch (error) {
         router.push("/");
       }

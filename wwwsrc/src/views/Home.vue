@@ -8,6 +8,8 @@
         <button class="btn btn-danger" v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
         <router-link to="/vaults">Vault</router-link>
+        <!-- <vaults v-for="vault in vaults" :key="vaults._id" :vaults="vaults" /> -->
+
       </a>
     </nav>
     <form @submit.prevent="addKeeps">
@@ -25,7 +27,7 @@
         <h5 class="card-title">{{keep.name}}</h5>
         <p class="card-text">{{keep.description}}</p>
         <button></i>Keep It</button>
-        <img :src="keep.img" />
+        <img data-toggle="modal" :src="keep.img" />
 
       </div>
     </div>
@@ -93,9 +95,6 @@
         this.$store.dispatch("logout");
 
       },
-      vaults() {
-        this.$store.dispatch("getVaults")
-      }
     }
   };
 </script>

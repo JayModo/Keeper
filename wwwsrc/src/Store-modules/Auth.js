@@ -67,7 +67,6 @@ export default {
 
     async getUsers({ commit }) {
       try {
-        debugger
         let endPoint = `user`
         let axiosRes = await api.get(endPoint)
         let users = axiosRes.data

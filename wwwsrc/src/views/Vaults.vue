@@ -13,7 +13,7 @@
       <input type="text" placeholder="description" v-model="newVault.description">
       <button class="btn btn-primary" type="submit">Create</button>
     </form>
-    <div v-for="vault in vaults" :vaults="vault" :key="vaults.id"></div>
+    <div v-for="vault in vaults" :vaults="vaults" :key="vaults.id"></div>
 
   </div>
 </template>
@@ -23,6 +23,7 @@
   export default {
     name: 'vaults',
     mounted() {
+      debugger
       this.$store.dispatch("getVaults");
       this.$store.state.Vaults.vaults.forEach(vaults => {
         let VaultsId = vaults.id
