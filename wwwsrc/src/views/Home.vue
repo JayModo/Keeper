@@ -27,8 +27,11 @@
         <h5 class="card-title">{{keep.name}}</h5>
         <p class="card-text">{{keep.description}}</p>
         <button></i>Keep It</button>
-
-        <img data-toggle="modal" :src="keep.img" />
+        <img class="btn" @click="openModal" :src="keep.img" />
+        <modal v-model="modalOpen">
+          <h5 class="card-title">{{keep.name}}</h5>
+          <p class="card-text">{{keep.description}}</p>
+        </modal>
 
       </div>
     </div>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-  // import keepComp from "../components/KeepComp";
+  import Modal from '../components/Modal'
   export default {
     name: "home",
     mounted() {
@@ -55,6 +58,7 @@
     },
     data() {
       return {
+        modalOpen: false,
         newKeep: {
           name: "",
           description: "",
@@ -65,6 +69,7 @@
       }
     },
     components: {
+      Modal
     },
     computed: {
       views() {
@@ -78,6 +83,10 @@
       }
     },
     methods: {
+      openModal() {
+        this.modalOpen = !this.modalOpen;
+      },
+
       viewKeeps() {
         this.$store.dispatch("keepView");
       },
