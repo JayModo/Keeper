@@ -3,7 +3,7 @@
     <h1>{{user.username}}'s vault is secure</h1>
     <nav class="navbar shadow rounded navbar-light bg-light">
       <a class="navbar-brand" href="#">
-
+        <router-link to="/">keeps</router-link>
         <button v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
       </a>
@@ -15,8 +15,11 @@
     </form>
     <div v-for="vault in vaults" :vaults="vault" :key="vaults.id">
       <div class="card" style="width: 16rem;">
-        <h5 class="card-title">{{vault.name}}</h5>
+        <button type="button" class="text-white m-1 btn btn-outline-light btn-sm"
+          @click="deleteVaults(vault)">delete</button>
+        <h5 class="card-title" @click="addVKeeps(vault.id)">{{vault.name}}</h5>
         <p class="card-text">{{vault.description}}</p>
+        <button type="button" @click="viewVault()" class="btn btn-secondary">View Vault</button>
 
       </div>
 
@@ -27,12 +30,15 @@
 
 
 <script>
+  import vaultKeeps from '../components/VaultKeeps.vue'
   export default {
     name: 'vaults',
+    props: ['keepProp'],
     mounted() {
       this.$store.dispatch("getVaults");
+      this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
       this.$store.state.Vaults.vaults.forEach(vaults => {
-        let VaultsId = vaults.id
+        let vaultsId = vaults.id
         this.$store.dispatch(VaultsId)
       });
     },
@@ -41,19 +47,47 @@
         newVault: {
           name: "",
           description: "",
+          vaultKeeps: []
         }
       }
     },
     computed: {
+      viewVault() {
+        this.$router.push({
+          name: "vaults",
+          params: { id: this.Vaults.id }
+        });
+      },
+
+      keeps(keepProp) {
+        return this.$store.state.HomePage.keeps;
+      },
+
       user() {
         return this.$store.state.Auth.user;
       },
-      vaults() {
+      vaults(vaultsId) {
+        if (vaultsId.userId != this.user.id) {
+
+        }
         return this.$store.state.Vaults.vaults;
       },
 
     },
     methods: {
+      deleteVaults(vaultsId) {
+        debugger
+        if (vaultsId.userId != this.user.id) {
+          // return alert("this is not yours to delete")
+        }
+        this.$store.dispatch("deleteVaults", vaultsId);
+      },
+
+      addVKeeps(vaultsId) {
+        debugger
+        this.$store.dispatch("addVKeeps", vaultsId)
+      },
+
       addVaults() {
         this.$store.dispatch("addVaults", this.newVault);
         this.newVault = { name: "", description: "" }
@@ -64,7 +98,7 @@
 
     },
     components: {
-
+      // VaultKeeps
     }
   }
 </script>

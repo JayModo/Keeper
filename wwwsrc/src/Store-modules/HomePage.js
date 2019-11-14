@@ -2,6 +2,7 @@ import router from "../router";
 import AuthService from "../AuthService";
 import Axios from "axios"
 import Vue from "vue";
+import { async } from "q";
 
 
 
@@ -22,23 +23,53 @@ let api = Axios.create({
 export default {
   state: {
     keeps: [],
-    activeKeep: {}
+    activeKeep: {},
+    keep: {}
   },
   mutations: {
+
     setActiveKeep(state, payload) {
       state.activeKeep = payload
     },
     setKeeps(state, payload) {
       state.keeps = payload
+    },
+    setKeep(state, payload) {
+      debugger
+      state.keep = payload
     }
   },
   actions: {
-    async getKeepById({ commit }, keepId) {
+    async deleteKeeps({ dispatch, state }, keepsId) {
       try {
         debugger
-        let endPoint = `${keepId}`
-        let axiosRes = await api.get(endPoint)
-        commit('setActiveKeep', axiosRes.data)
+        let keepId = keepsId.id
+        let endPoint = `/${keepId}`;
+        await api.delete(endPoint);
+        dispatch('getKeeps')
+      } catch (error) {
+
+      }
+    },
+
+
+    async updateViews({ commit, dispatch, state }, keepsId) {
+
+      try {
+        debugger
+
+        let endPoint = `/${keepsId.id}`
+        let axiosRes = await api.put(endPoint);
+        dispatch('setKeeps', axiosRes.data)
+      } catch (error) {
+
+      }
+    },
+    async getKeepById({ commit, dispatch }, keepsId) {
+      try {
+        debugger
+        let axiosRes = await api.get(keepsId)
+        commit('updateViews', axiosRes.data)
       } catch (error) {
 
       }

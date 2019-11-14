@@ -2,41 +2,37 @@
   <div class="modal" v-show="value">
     <div class="container">
       <div class="modal-content">
-
         <slot>
 
-
         </slot>
-        <div class="modal-content">
-
-        </div>
       </div>
-      <button @click.prevent="cancel" class="mt-3 border-b border-teal font-semibold">Close</button>
     </div>
+    <button @click.prevent="cancel" class="mt-3 border-b border-teal font-semibold">Close</button>
   </div>
 </template>
 
 
 <script>
-
+  import Home from '../views/Home'
   export default {
+    props: {
+
+      value: {},
+    },
     name: 'modal',
     data() {
       return {
-
         openModal: true
       }
     },
-    props: {
-      value: { required: true }
-      // showModal: { type: Boolean, required: true },
-      // closeCallBack: { type: Function, required: true }
-    },
+
 
     components: {
     },
     computed: {},
     methods: {
+
+
       cancel() {
         this.$emit("input", !this.value)
         // this.closeCallBack()

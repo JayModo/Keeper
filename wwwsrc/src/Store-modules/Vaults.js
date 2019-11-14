@@ -8,7 +8,7 @@ import Auth from "./Auth";
 
 
 
-const CONTROLLER_ROUTE = 'api/vaults'
+const CONTROLLER_ROUTE = 'api/'
 // EXAMPLE: const CONTROLLER_ROUTE = 'api/cars'
 
 
@@ -25,17 +25,61 @@ let api = Axios.create({
 export default {
   state: {
     vaults: [],
-
+    vaultKeeps: [],
+    userVaults: []
   },
   mutations: {
+    setKeepsByVaultId(state, vaultkeeps) {
+      state.vaultkeeps = vaultkeeps;
+    },
     setVaults(state, payload) {
       state.vaults = payload
+    },
+    setVaultKeeps(state, payload) {
+      state.vaultKeeps = payload
+    },
+    setUserKeeps(state, payload) {
+      state.userVaults = payload
     }
   },
   actions: {
+    async deleteVaults({ dispatch, state }, vaultsId) {
+      try {
+        debugger
+        let vaultId = vaultsId.id
+        let endPoint = `vaults/${vaultId}`;
+        await api.delete(endPoint);
+        dispatch('getVaults')
+      } catch (error) {
+
+      }
+    },
+
+
+
+    // async addVkeeps({ commit, dispatch }, keepsId) {
+    //   try {
+    //     debugger
+    //     let axiosRes = await api.post(`/vaultkeeps`, keepsId)
+    //     commit("setVaultKeeps", axiosRes.data)
+    //   } catch (error) {
+    //     console.error("vault store addkeeps() for vaults")
+    //   }
+    // },
+    async getVkeeps({ commit, dispatch }, vaultId) {
+      try {
+        let endpoint = `${vaultId}/keeps`;
+        let axiosRES = await api.get(endpoint);
+        commit('setKeepsByVaultId', axiosRES.data);
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+
     async getVaults({ commit, dispatch, state }) {
       try {
-        let axiosRes = await api.get("");
+        let axiosRes = await api.get("vaults");
         let vaults = axiosRes.data;
         commit("setVaults", vaults);
         state.vaults.forEach(vault => {
@@ -46,10 +90,18 @@ export default {
         router.push("/vaults");
       }
     },
+    async getUserVaults({ commit, dispatch }) {
+      try {
+        let axiosRes = await api.get(`/vaults`)
+        commit('setVaults', axiosRes.data)
+      } catch (error) {
+
+      }
+    },
 
 
     async addVaults({ commit, dispatch }, vaultData) {
-      let axiosRes = await api.post("", vaultData);
+      let axiosRes = await api.post("vaults", vaultData);
       if (axiosRes) {
         dispatch("getVaults");
       }
