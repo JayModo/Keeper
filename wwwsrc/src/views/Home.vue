@@ -37,12 +37,13 @@
           <h5 class="card-title">{{keep.name}}</h5>
           <h3>views: {{keep.views}}</h3>
           <p class="card-text">{{keep.description}}</p>
-          <button @click="addToVault(keep)"></button>
-          <select v-model="selected" v-if="user.id!=null">
-            <option disabled value="">choose vault</option>
-            <vaults v-for="vault in vaults" :key="vaults" :vaults="vaults" @click="addToVault(keep)" />
+          <select>
 
+            <option v-for="vault in vaults" :key="vaults" :vaults="vaults" @click="addToVault(keep)" value="vault">
+
+            </option>
           </select>
+
           <img class="btn" @click="openModal(keep)" :src="keep.img">
         </div>
         <modal v-if="modalOpen" v-model="modalOpen" onclick.prevent="modalKeep">
@@ -66,18 +67,18 @@
 </template>
 
 <script>
+  import vaultKeeps from '../components/VaultKeeps.vue'
   import Vaults from './Vaults.vue'
   import Modal from '../components/Modal'
   export default {
     name: "home",
     props: {
       keep: { type: Object },
-      vault: { type: Object }
     },
     mounted() {
-      let payloadKeeps = {
-        id: this.$route.params.id
-      }
+      // let payloadKeeps = {
+      //   id: this.$route.params.id
+      // }
       this.$store.dispatch("getKeeps");
       this.$store.state.HomePage.keeps.forEach(keep => {
         let keepsId = keep.id
@@ -87,7 +88,6 @@
 
     data() {
       return {
-
         selected: '',
         modalKeep: {
           Keep: { type: Object },
@@ -106,14 +106,13 @@
     },
     components: {
       Modal,
-      // Vaults
+      vaultKeeps
     },
     computed: {
       // keep() {
       //   return this.$store.state.HomePage.keep
       // },
       vaults() {
-
         return this.$store.state.Vaults.vaults;
       },
 
@@ -135,10 +134,10 @@
       }
     },
     methods: {
-      addToVault(keepsId) {
+      addToVault(keep) {
         debugger
 
-        this.$store.dispatch("addVkeeps", keepsId)
+        this.$store.dispatch("createVaultKeep", keep)
       },
       // show(keep) {
       //   debugger

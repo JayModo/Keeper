@@ -19,7 +19,7 @@
           @click="deleteVaults(vault)">delete</button>
         <h5 class="card-title" @click="addVKeeps(vault.id)">{{vault.name}}</h5>
         <p class="card-text">{{vault.description}}</p>
-        <button type="button" @click="viewVault()" class="btn btn-secondary">View Vault</button>
+        <button type="button" @click="viewVault(vault)" class="btn btn-secondary">View Vault</button>
 
       </div>
 
@@ -33,10 +33,10 @@
   import vaultKeeps from '../components/VaultKeeps.vue'
   export default {
     name: 'vaults',
-    props: ['keepProp'],
+    props: ['vaultprop'],
     mounted() {
       this.$store.dispatch("getVaults");
-      this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
+      // this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
       this.$store.state.Vaults.vaults.forEach(vaults => {
         let vaultsId = vaults.id
         this.$store.dispatch(VaultsId)
@@ -52,13 +52,13 @@
       }
     },
     computed: {
-      viewVault() {
-        this.$router.push({
-          name: "vaults",
-          params: { id: this.Vaults.id }
-        });
+      // activeVault() {
+      //   debugger
+      //   return this.$store.state.Vaults.activevault;
+      // },
+      vaultKeeps() {
+        return this.$store.state.Vaults.activevault;
       },
-
       keeps(keepProp) {
         return this.$store.state.HomePage.keeps;
       },
@@ -75,6 +75,13 @@
 
     },
     methods: {
+      viewVault(vault) {
+        debugger
+        this.$router.push({
+          name: "VaultsView",
+          params: { id: vault.id }
+        });
+      },
       deleteVaults(vaultsId) {
         debugger
         if (vaultsId.userId != this.user.id) {

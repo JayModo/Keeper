@@ -1,7 +1,11 @@
 <template>
-  <div class="vaultkeeps">
-    <div class="row">{{vaultkeeps.name}}
-    </div>
+  <div class="vault-keeps">
+    <select v-model="selected" v-if="user.id!=null">
+      <option v-for="vault in vaults" :key="vaults" :vaults="vaults" @click="addToVault(keep)">{{vaults}}
+      </option>
+    </select>
+    <span>Selected: {{selected}}</span>
+    <div class="row">{{vaultkeeps.name}}</div>
 
   </div>
 </template>
@@ -11,15 +15,14 @@
   export default {
     name: 'vaultkeeps',
     props: {
-      vaulrkeep: {
+      vaultkeep: {
         type: Object,
-        required: true
       }
     },
 
     data() {
       return {
-
+        selected: ''
       }
     },
     computed: {
@@ -33,8 +36,12 @@
         return this.$store.Vaults.state.userVaults
       }
     },
-    methods: {},
-    components: {}
+    methods: {
+
+    },
+    components: {
+
+    }
   }
 </script>
 

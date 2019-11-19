@@ -1,5 +1,5 @@
 <template>
-  <div class="vaults" v-if="vaultkeeps">
+  <div class="vault" v-if="vaultkeeps">
     <h1>{{activevault.name}}</h1>
     <div v-for="keep in vaultkeeps" :key="'vault-keep-'+keep.id">
       <h3>{{keep.name}}</h3>
@@ -14,14 +14,20 @@
 
 <script>
   export default {
-    name: 'activevault',
+    name: 'vault',
     props: ["propvault"],
     data() {
       return {}
     },
     computed: {},
     methods: {
-
+      viewVault() {
+        debugger
+        this.$router.push({
+          name: "Vault",
+          params: { id: this.propvault.id }
+        });
+      },
       activeVault() {
         return this.$store.Vaults.activeVault;
       },

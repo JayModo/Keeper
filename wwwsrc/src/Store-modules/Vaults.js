@@ -24,11 +24,16 @@ let api = Axios.create({
 
 export default {
   state: {
+    activevault: {},
     vaults: [],
     vaultKeeps: [],
     userVaults: []
   },
   mutations: {
+    setactiveVault(state, activevault) {
+      debugger
+      state.activevault = activevault
+    },
     setKeepsByVaultId(state, vaultkeeps) {
       state.vaultkeeps = vaultkeeps;
     },
@@ -43,6 +48,27 @@ export default {
     }
   },
   actions: {
+    async getVaultById({ commit, dispatch }, payload) {
+      try {
+        debugger
+        let endpoint = `vaults/${payload}`;
+        let axiosRES = await api.get(endpoint)
+        commit('setactiveVault', axiosRES.data)
+      }
+      catch (error) {
+        console.error(error)
+      }
+    },
+    async getKeepsByVaultId({ commit }, vaultId) {
+      try {
+        let endpoint = `vaults/${vaultId}`;
+        let axiosRES = await api.get(endpoint);
+        commit('setKeepsByVaultId', axiosRES.data);
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
     async deleteVaults({ dispatch, state }, vaultsId) {
       try {
         debugger
