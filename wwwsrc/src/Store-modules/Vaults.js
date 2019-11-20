@@ -27,7 +27,6 @@ export default {
     activevault: {},
     vaults: [],
     vaultKeeps: [],
-    userVaults: []
   },
   mutations: {
     setactiveVault(state, activevault) {

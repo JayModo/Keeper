@@ -52,7 +52,10 @@
         computed: {
             keeps() {
                 return this.$store.state.HomePage.keeps;
-            }
+            },
+            vaults() {
+                return this.$store.state.Vaults.vaults;
+            },
         },
         components: {
         },

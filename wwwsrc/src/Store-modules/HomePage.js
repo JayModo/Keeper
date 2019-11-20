@@ -6,7 +6,7 @@ import { async } from "q";
 
 
 
-const CONTROLLER_ROUTE = 'api/keeps'
+const CONTROLLER_ROUTE = 'api/'
 // EXAMPLE: const CONTROLLER_ROUTE = 'api/cars'
 
 
@@ -23,11 +23,14 @@ let api = Axios.create({
 export default {
   state: {
     keeps: [],
+    vaults: [],
     activeKeep: {},
     keep: {}
   },
   mutations: {
-
+    setVaults(state, payload) {
+      state.vaults = payload
+    },
     setActiveKeep(state, payload) {
       state.activeKeep = payload
     },
@@ -40,11 +43,25 @@ export default {
     }
   },
   actions: {
+    async getVaultsOption({ commit, dispatch, state }) {
+      try {
+        debugger
+        let axiosRes = await api.get("vaults");
+        let vaults = axiosRes.data;
+        commit("setVaults", vaults);
+        state.vaults.forEach(vault => {
+          let vaultsId = vaults._id
+          dispatch(vaultsId)
+        });
+      } catch (error) {
+
+      }
+    },
     async deleteKeeps({ dispatch, state }, keepsId) {
       try {
         debugger
         let keepId = keepsId.id
-        let endPoint = `/${keepId}`;
+        let endPoint = `keeps/${keepId}`;
         await api.delete(endPoint);
         dispatch('getKeeps')
       } catch (error) {
@@ -58,7 +75,7 @@ export default {
       try {
         debugger
 
-        let endPoint = `/${keepsId.id}`
+        let endPoint = `keeps/${keepsId.id}`
         let axiosRes = await api.put(endPoint);
         dispatch('setKeeps', axiosRes.data)
       } catch (error) {
@@ -78,7 +95,7 @@ export default {
 
     async getKeeps({ commit, dispatch, state }) {
       try {
-        let axiosRes = await api.get("");
+        let axiosRes = await api.get("keeps");
         let keeps = axiosRes.data;
         commit("setKeeps", keeps);
         state.keeps.forEach(keep => {
@@ -92,7 +109,7 @@ export default {
 
 
     async addKeeps({ commit, dispatch }, keepData) {
-      let axiosRes = await api.post("", keepData);
+      let axiosRes = await api.post("keeps", keepData);
       if (axiosRes) {
         dispatch("getKeeps");
       }

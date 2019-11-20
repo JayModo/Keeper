@@ -24,9 +24,8 @@
       <input type="url" placeholder="img" v-model="newKeep.img">
       <button class="btn btn-primary" type="submit">Create</button>
     </form>
-    >
-    <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
 
+    <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
 
 
 
@@ -37,12 +36,20 @@
           <h5 class="card-title">{{keep.name}}</h5>
           <h3>views: {{keep.views}}</h3>
           <p class="card-text">{{keep.description}}</p>
-          <select>
 
-            <option v-for="vault in vaults" :key="vaults" :vaults="vaults" @click="addToVault(keep)" value="vault">
+
+
+
+
+          </vaults v-for="vault in vaults" :key="vault" :vaults="vault" />
+          <select v-model="value" @click="getVaultsOption(vaults)">
+            <option value="Vaults.vaults" @click="addToVault(keep)">
+              <ul>{{vaults}}</ul>
 
             </option>
           </select>
+
+
 
           <img class="btn" @click="openModal(keep)" :src="keep.img">
         </div>
@@ -72,8 +79,10 @@
   import Modal from '../components/Modal'
   export default {
     name: "home",
+
     props: {
       keep: { type: Object },
+
     },
     mounted() {
       // let payloadKeeps = {
@@ -83,11 +92,13 @@
       this.$store.state.HomePage.keeps.forEach(keep => {
         let keepsId = keep.id
         this.$store.dispatch(keepsId)
+
       });
     },
 
     data() {
       return {
+        vaults: [],
         selected: '',
         modalKeep: {
           Keep: { type: Object },
@@ -106,15 +117,18 @@
     },
     components: {
       Modal,
-      vaultKeeps
+      vaultKeeps,
+      Vaults
+
     },
     computed: {
       // keep() {
       //   return this.$store.state.HomePage.keep
       // },
-      vaults() {
-        return this.$store.state.Vaults.vaults;
-      },
+      // vaults() {
+      //   return this.$store.state.Vaults.vaults;
+
+      // },
 
       isPrivate() {
         if (user.keeps.isPrivate != true) {
@@ -134,6 +148,14 @@
       }
     },
     methods: {
+      getVaultsOption(vaults) {
+        debugger
+        this.vaults == vaults
+        this.$store.state.Vaults.vaults == vaults
+        return vaults
+
+
+      },
       addToVault(keep) {
         debugger
 

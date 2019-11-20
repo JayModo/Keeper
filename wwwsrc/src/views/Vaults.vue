@@ -39,7 +39,7 @@
       // this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
       this.$store.state.Vaults.vaults.forEach(vaults => {
         let vaultsId = vaults.id
-        this.$store.dispatch(VaultsId)
+        this.$store.dispatch(vaultsId)
       });
     },
     data() {
@@ -67,6 +67,7 @@
         return this.$store.state.Auth.user;
       },
       vaults(vaultsId) {
+        debugger
         if (vaultsId.userId != this.user.id) {
 
         }
