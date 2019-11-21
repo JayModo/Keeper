@@ -1,7 +1,7 @@
 <template>
   <div class="keeps container-fluid">
-    <div class="row">
-      <div class="col-4">
+    <!-- <div class="row"> -->
+    <!-- <div class="col-4">
         <button v-if="keep.userId == user.id" @click="deleteKeep(keep)" type="button" class="btn btn-danger">Delete
           Keep</button>
         <img class="keep-img" :src="keep.img" />
@@ -9,29 +9,35 @@
         {{keep.name}}
         <br />
         {{keep.description}}
-        <br />
-        <button type="button" class="btn btn-primary">View Keep</button>
-        <select @change="saveKeep()" v-model="newVaultId">
-          <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
-        </select>
-      </div>
-    </div>
-    <br />
+        <br /> -->
+    <!-- <button type="button" class="btn btn-primary">View Keep</button> -->
+    <!-- <select @change="saveKeep()" v-model="newVaultId">
+      <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
+    </select> -->
+    <select v-model="value" @click="getVaultsOption()">
+      <option v-for="vault in vaults" :value="vault" :key="vaults" value="vaults" @click="addToVault(keep)">
+        <ul>{{vault.name}}</ul>
+      </option>
+    </select>
+
+    <!-- </div>
+  </div>
+  <br /> -->
   </div>
 </template>
 
 
 <script>
   export default {
-    name: "keep",
+    name: "keepComp",
     props: {
       keep: {
         type: Object,
-        required: true
       }
     },
     data() {
       return {
+        value: [],
         newVaultId: "",
         newKeep: {
           description: ""
@@ -47,6 +53,11 @@
       }
     },
     methods: {
+      getVaultsOption(vaults) {
+        this.$emit('showVaults', this.value)
+        this.value = [{}]
+      },
+
       saveKeep() {
         let keepData = {
           keepId: this.keep.id,

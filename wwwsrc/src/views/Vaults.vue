@@ -24,6 +24,11 @@
       </div>
 
     </div>
+    <!-- <select v-model="value" @click="getVaultsOption(vaults)">
+      <option value="vaults" @click="addToVault(keep)">
+        <ul>{{vault.name}}</ul>
+      </option>
+    </select> -->
 
   </div>
 </template>
@@ -44,6 +49,7 @@
     },
     data() {
       return {
+        value: [],
         newVault: {
           name: "",
           description: "",
@@ -76,6 +82,11 @@
 
     },
     methods: {
+      vaultOption() {
+        this.$emit('vaultOption', vaults)
+        vaults == this.value
+      },
+
       viewVault(vault) {
         debugger
         this.$router.push({

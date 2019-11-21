@@ -41,13 +41,13 @@
 
 
 
-          </vaults v-for="vault in vaults" :key="vault" :vaults="vault" />
-          <select v-model="value" @click="getVaultsOption(vaults)">
+          <keepComp v-model="value" v-on:vaultOption="showVaults(value)" />
+          <!-- <select v-model="value" @click="getVaultsOption(vaults)">
             <option value="Vaults.vaults" @click="addToVault(keep)">
               <ul>{{vaults}}</ul>
 
             </option>
-          </select>
+          </select> -->
 
 
 
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+  import KeepComp from '../components/KeepComp'
   import vaultKeeps from '../components/VaultKeeps.vue'
   import Vaults from './Vaults.vue'
   import Modal from '../components/Modal'
@@ -98,7 +99,7 @@
 
     data() {
       return {
-        vaults: [],
+        value: [{}],
         selected: '',
         modalKeep: {
           Keep: { type: Object },
@@ -118,17 +119,17 @@
     components: {
       Modal,
       vaultKeeps,
-      Vaults
+      KeepComp
 
     },
     computed: {
       // keep() {
       //   return this.$store.state.HomePage.keep
       // },
-      // vaults() {
-      //   return this.$store.state.Vaults.vaults;
+      vaults() {
+        return this.$store.state.Vaults.vaults;
 
-      // },
+      },
 
       isPrivate() {
         if (user.keeps.isPrivate != true) {
@@ -148,14 +149,17 @@
       }
     },
     methods: {
-      getVaultsOption(vaults) {
-        debugger
-        this.vaults == vaults
-        this.$store.state.Vaults.vaults == vaults
-        return vaults
-
-
+      showVaults(value) {
+        this.value.push(value)
       },
+
+
+      // getVaultsOption(vaults) {
+      //   debugger
+      //   this.vaults == vaults
+      //   this.$store.state.Vaults.vaults == vaults
+      //   return vaults
+      // },
       addToVault(keep) {
         debugger
 
