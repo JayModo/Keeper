@@ -20,16 +20,10 @@
         <h5 class="card-title" @click="addVKeeps(vault.id)">{{vault.name}}</h5>
         <p class="card-text">{{vault.description}}</p>
         <button type="button" @click="viewVault(vault)" class="btn btn-secondary">View Vault</button>
-
       </div>
+      <keep-comp v-on:getVaultsOption="getVaultsOption" />
 
     </div>
-    <!-- <select v-model="value" @click="getVaultsOption(vaults)">
-      <option value="vaults" @click="addToVault(keep)">
-        <ul>{{vault.name}}</ul>
-      </option>
-    </select> -->
-
   </div>
 </template>
 
@@ -82,9 +76,8 @@
 
     },
     methods: {
-      vaultOption() {
-        this.$emit('vaultOption', vaults)
-        vaults == this.value
+      getVaultsOption() {
+        return this.$store.state.Vaults.vaults;
       },
 
       viewVault(vault) {

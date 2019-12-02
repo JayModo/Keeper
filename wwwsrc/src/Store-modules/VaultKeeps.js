@@ -52,7 +52,8 @@ export default {
     },
     async saveKeep({ commit, dispatch }, vaultkeep) {
       try {
-        let endpoint = `${vaultkeep.vaultId}`;
+        debugger
+        let endpoint = `${vaultkeep}`;
         let axiosRES = await api.get(endpoint);
         let vaultkeeps = axiosRES.data;
         let keep = vaultkeeps.find(vk => {

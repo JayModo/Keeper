@@ -14,9 +14,11 @@
     <!-- <select @change="saveKeep()" v-model="newVaultId">
       <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
     </select> -->
-    <select v-model="value" @click="getVaultsOption()">
-      <option v-for="vault in vaults" :value="vault" :key="vaults" value="vaults" @click="addToVault(keep)">
-        <ul>{{vault.name}}</ul>
+
+    <select v-model="value" @click="getVaultsOption()" @change="saveKeep()">
+      <option v-for="vault in vaults" value="vaults">
+
+        <ul @click="saveKeep()">{{vault.name}}</ul>
       </option>
     </select>
 
@@ -30,18 +32,24 @@
 <script>
   export default {
     name: "keepComp",
+    // mounted() {
+    //   this.$store.dispatch("getVaults");
+    // },
     props: {
+
       keep: {
         type: Object,
       }
     },
     data() {
       return {
+        // vaults: [],
+        vaultProp: [],
         value: [],
         newVaultId: "",
-        newKeep: {
-          description: ""
-        }
+        // newKeep: {
+        //   description: ""
+        // }
       };
     },
     computed: {
@@ -49,21 +57,42 @@
         return this.$store.state.user;
       },
       vaults() {
+        // this.$store.state.Vaults.vaults = this.vaults
         return this.$store.state.Vaults.vaults;
+      },
+      keeps() {
+        return this.$store.state.HomePage.keeps;
       }
     },
     methods: {
-      getVaultsOption(vaults) {
-        this.$emit('showVaults', this.value)
-        this.value = [{}]
-      },
+      addToVault(vault) {
+        debugger
 
+      },
+      //  this.$store.dispatch("getVaults");
+      // // this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
+      // this.$store.state.Vaults.vaults.forEach(vaults => {
+      //   let vaultsId = vaults.id
+      //   this.$store.dispatch(vaultsId)
+      getVaultsOption() {
+        // debugger
+        this.value = this.vaultProp
+        this.$emit('getVaultsOption', this.vaultProp)
+        this.vaultProp = []
+
+
+
+
+      },
+      // trying to get activeKeep and activeVault for vaultkeep
       saveKeep() {
+        debugger
         let keepData = {
-          keepId: this.keep.id,
-          vaultId: this.newVaultId,
+          keepId: this.$store.state.HomePage.keeps,
+          vaultId: this.$store.state.Vaults.activevault.id,
           userId: ""
         };
+        // this.$emit('saveKeep', keepData)
         this.$store.dispatch("saveKeep", keepData);
       },
       deleteKeep(keep) {

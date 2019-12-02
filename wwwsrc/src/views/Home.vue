@@ -11,7 +11,7 @@
         <router-link v-else :to="{name: 'login'}">Login</router-link>
         <router-link v-if="user.id!=null" to="/vaults">Vault</router-link>
         <!-- <vaults v-bind:keepProp="keeps" /> -->
-        <vaults v-for="vault in vaults" :key="vaults" :vaults="vaults" />
+        <!-- <vaults v-for="vault in vaults" :vaults="vaults" /> -->
 
       </a>
 
@@ -41,7 +41,7 @@
 
 
 
-          <keepComp v-model="value" v-on:vaultOption="showVaults(value)" />
+          <keepComp v-if="vaults" v-model="value" v-on:vaultOption="showVaults(value)" />
           <!-- <select v-model="value" @click="getVaultsOption(vaults)">
             <option value="Vaults.vaults" @click="addToVault(keep)">
               <ul>{{vaults}}</ul>
@@ -154,13 +154,13 @@
       },
 
 
-      // getVaultsOption(vaults) {
-      //   debugger
-      //   this.vaults == vaults
-      //   this.$store.state.Vaults.vaults == vaults
-      //   return vaults
-      // },
-      addToVault(keep) {
+      getVaultsOption(vaults) {
+        debugger
+        this.vaults == vaults
+        this.$store.state.Vaults.vaults == vaults
+        return vaults
+      },
+      saveKeep(keep) {
         debugger
 
         this.$store.dispatch("createVaultKeep", keep)
@@ -170,9 +170,9 @@
 
       //   this.$modal.show(keep)
       // },
-      // AddToVault(keepsId) {
-      //   this.$store.Vaults.dispatch(keepsId)
-      // },
+      AddToVault(keepsId) {
+        this.$store.Vaults.dispatch(keepsId)
+      },
       handleViews(views) {
 
       },
