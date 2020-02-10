@@ -18,6 +18,7 @@
     props: {
       vaultkeep: {
         type: Object,
+        required: true
       }
     },
 

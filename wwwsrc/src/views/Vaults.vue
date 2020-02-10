@@ -21,7 +21,7 @@
         <p class="card-text">{{vault.description}}</p>
         <button type="button" @click="viewVault(vault)" class="btn btn-secondary">View Vault</button>
       </div>
-      <keep-comp v-on:getVaultsOption="getVaultsOption" />
+      <keepComp v-on:getVaultsOption="getVaultsOption"> </keepComp>
 
     </div>
   </div>
@@ -29,6 +29,7 @@
 
 
 <script>
+  import keepComp from '../components/KeepComp.vue'
   import vaultKeeps from '../components/VaultKeeps.vue'
   export default {
     name: 'vaults',
@@ -111,6 +112,7 @@
     },
     components: {
       // VaultKeeps
+      'keepComp': keepComp
     }
   }
 </script>

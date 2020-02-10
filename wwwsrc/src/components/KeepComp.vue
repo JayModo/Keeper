@@ -18,7 +18,7 @@
     <select v-model="value" @click="getVaultsOption()" @change="saveKeep()">
       <option v-for="vault in vaults" value="vaults">
 
-        <ul @click="saveKeep()">{{vault.name}}</ul>
+        <ul @click="saveKeep(vault.id)">{{vault.name}}</ul>
       </option>
     </select>
 
@@ -85,12 +85,18 @@
 
       },
       // trying to get activeKeep and activeVault for vaultkeep
-      saveKeep() {
+      saveKeep(vault) {
         debugger
+        let vaultId = {}
+        this.vaults.forEach(vault => {
+
+        });
+
         let keepData = {
-          keepId: this.$store.state.HomePage.keeps,
-          vaultId: this.$store.state.Vaults.activevault.id,
-          userId: ""
+
+          keepId: this.$store.state.HomePage.keeps.id,
+          vaultId: this.vault.id,
+          userId: { type: Number }
         };
         // this.$emit('saveKeep', keepData)
         this.$store.dispatch("saveKeep", keepData);

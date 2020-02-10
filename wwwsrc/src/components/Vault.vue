@@ -24,7 +24,7 @@
       viewVault() {
         debugger
         this.$router.push({
-          name: "Vault",
+          name: "vaults",
           params: { id: this.propvault.id }
         });
       },
