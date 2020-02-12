@@ -15,10 +15,10 @@
       <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
     </select> -->
 
-    <select v-model="value" @click="getVaultsOption()" @change="saveKeep()">
-      <option v-for="vault in vaults" value="vaults">
+    <select v-on:click.once="getVaultsOption(vaults)" @change="saveKeep(vaults)">
+      <option v-for="vault in vaults" :key="vault.id">
 
-        <ul @click="saveKeep(vault.id)">{{vault.name}}</ul>
+        <ul @click="saveKeep(vault)">{{vault.name}}</ul>
       </option>
     </select>
 
@@ -36,15 +36,14 @@
     //   this.$store.dispatch("getVaults");
     // },
     props: {
-
+      // vaults: [],
       keep: {
         type: Object,
       }
     },
     data() {
       return {
-        // vaults: [],
-        vaultProp: [],
+        vaultProp: {},
         value: [],
         newVaultId: "",
         // newKeep: {
@@ -53,6 +52,9 @@
       };
     },
     computed: {
+      vault() {
+        return this.$store.state.Vaults.activeVaults;
+      },
       user() {
         return this.$store.state.user;
       },
@@ -74,10 +76,12 @@
       // this.$store.state.Vaults.vaults.forEach(vaults => {
       //   let vaultsId = vaults.id
       //   this.$store.dispatch(vaultsId)
-      getVaultsOption() {
-        // debugger
-        this.value = this.vaultProp
-        this.$emit('getVaultsOption', this.vaultProp)
+      getVaultsOption(vaults) {
+        this.$store.dispatch("getVaults", vaults);
+        this.$store.state.Vaults.vaults = this.vaultProp
+        // this.$emit('getVaultsOption', this.$store.state.Vaults.vaults)
+        // vaults = this.vaultProp
+        // this.$emit('getVaultsOption', this.vaultProp)
         this.vaultProp = []
 
 
@@ -87,15 +91,12 @@
       // trying to get activeKeep and activeVault for vaultkeep
       saveKeep(vault) {
         debugger
-        let vaultId = {}
-        this.vaults.forEach(vault => {
-
-        });
+        // let vaultId = this.vault.id
 
         let keepData = {
 
           keepId: this.$store.state.HomePage.keeps.id,
-          vaultId: this.vault.id,
+          vaultId: this.vaults.id,
           userId: { type: Number }
         };
         // this.$emit('saveKeep', keepData)

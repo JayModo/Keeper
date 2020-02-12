@@ -41,7 +41,7 @@
 
 
 
-          <keepComp v-if="vaults" v-model="value" v-on:vaultOption="showVaults(value)" />
+          <keepComp v-if="vaults" v-model="value" v-on:getVaultsOption="showVaults(value)" />
           <!-- <select v-model="value" @click="getVaultsOption(vaults)">
             <option value="Vaults.vaults" @click="addToVault(keep)">
               <ul>{{vaults}}</ul>
@@ -65,11 +65,6 @@
 
 
     </div>
-
-
-
-
-
   </div>
 </template>
 
@@ -117,6 +112,7 @@
       }
     },
     components: {
+      Vaults,
       Modal,
       vaultKeeps,
       KeepComp

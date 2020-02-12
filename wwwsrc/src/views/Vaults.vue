@@ -21,7 +21,7 @@
         <p class="card-text">{{vault.description}}</p>
         <button type="button" @click="viewVault(vault)" class="btn btn-secondary">View Vault</button>
       </div>
-      <keepComp v-on:getVaultsOption="getVaultsOption"> </keepComp>
+      <!-- <keepComp v-on:getVaultsOption="getVaultsOption"> </keepComp> -->
 
     </div>
   </div>
@@ -68,7 +68,6 @@
         return this.$store.state.Auth.user;
       },
       vaults(vaultsId) {
-        debugger
         if (vaultsId.userId != this.user.id) {
 
         }

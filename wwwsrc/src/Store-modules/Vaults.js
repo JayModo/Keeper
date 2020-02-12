@@ -112,7 +112,7 @@ export default {
           dispatch(vaultsId)
         });
       } catch (error) {
-        router.push("/vaults");
+        // router.push("/vaults");
       }
     },
     async getUserVaults({ commit, dispatch }) {
