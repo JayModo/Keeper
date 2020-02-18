@@ -41,7 +41,7 @@
 
 
 
-          <keepComp v-if="vaults" v-model="value" v-on:getVaultsOption="showVaults(value)" />
+          <keepComp v-if="vaults" v-model="vault" v-on:getVaultsOption="showVaults(value)" />
           <!-- <select v-model="value" @click="getVaultsOption(vaults)">
             <option value="Vaults.vaults" @click="addToVault(keep)">
               <ul>{{vaults}}</ul>
@@ -94,7 +94,7 @@
 
     data() {
       return {
-        value: [{}],
+        vault: [{}],
         selected: '',
         modalKeep: {
           Keep: { type: Object },
@@ -145,8 +145,8 @@
       }
     },
     methods: {
-      showVaults(value) {
-        this.value.push(value)
+      showVaults(vault) {
+        this.vault.push(vault)
       },
 
 

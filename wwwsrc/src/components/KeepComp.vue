@@ -16,15 +16,12 @@
     </select> -->
 
     <select v-on:click.once="getVaultsOption(vaults)" @change="saveKeep(vaults)">
-      <option v-for="vault in vaults" :key="vault.id">
-
-        <ul @click="saveKeep(vault)">{{vault.name}}</ul>
+      <option v-for="vault in vaults" id="vaults" :key="vault.id">
+        <ul @click="saveKeep(vault)">
+          <li>{{vault.name}}</li>
+        </ul>
       </option>
     </select>
-
-    <!-- </div>
-  </div>
-  <br /> -->
   </div>
 </template>
 
@@ -52,9 +49,9 @@
       };
     },
     computed: {
-      vault() {
-        return this.$store.state.Vaults.activeVaults;
-      },
+      // vault() {
+      //   return this.$store.state.Vaults.activeVaults;
+      // },
       user() {
         return this.$store.state.user;
       },
@@ -71,11 +68,7 @@
         debugger
 
       },
-      //  this.$store.dispatch("getVaults");
-      // // this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
-      // this.$store.state.Vaults.vaults.forEach(vaults => {
-      //   let vaultsId = vaults.id
-      //   this.$store.dispatch(vaultsId)
+
       getVaultsOption(vaults) {
         this.$store.dispatch("getVaults", vaults);
         this.$store.state.Vaults.vaults = this.vaultProp
@@ -92,7 +85,6 @@
       saveKeep(vault) {
         debugger
         // let vaultId = this.vault.id
-
         let keepData = {
 
           keepId: this.$store.state.HomePage.keeps.id,
