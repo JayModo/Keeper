@@ -1,27 +1,14 @@
 <template>
   <div class="keeps container-fluid">
-    <!-- <div class="row"> -->
-    <!-- <div class="col-4">
-        <button v-if="keep.userId == user.id" @click="deleteKeep(keep)" type="button" class="btn btn-danger">Delete
-          Keep</button>
-        <img class="keep-img" :src="keep.img" />
-        <br />
-        {{keep.name}}
-        <br />
-        {{keep.description}}
-        <br /> -->
-    <!-- <button type="button" class="btn btn-primary">View Keep</button> -->
-    <!-- <select @change="saveKeep()" v-model="newVaultId">
-      <option v-for="vault in vaults" :value="vault.id" :key="vault.id">{{vault.name}}</option>
-    </select> -->
+    <button v-on:click.once="getVaultsOption(vaults)">your Vaults</button>
 
-    <select v-on:click.once="getVaultsOption(vaults)" @change="saveKeep(vaults)">
-      <option v-for="vault in vaults" id="vaults" :key="vault.id">
-        <ul @click="saveKeep(vault)">
-          <li>{{vault.name}}</li>
-        </ul>
-      </option>
-    </select>
+    <div v-for="vault in vaults" :vaults="vault" :key="vault._id">
+      <select v-on:click="saveKeep(vault)">
+        <option>
+          <ul v-on:click="saveKeep(vault)">{{vault.name}}</ul>
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -29,9 +16,9 @@
 <script>
   export default {
     name: "keepComp",
-    // mounted() {
-    //   this.$store.dispatch("getVaults");
-    // },
+    mounted() {
+
+    },
     props: {
       // vaults: [],
       keep: {
@@ -70,6 +57,7 @@
       },
 
       getVaultsOption(vaults) {
+        debugger
         this.$store.dispatch("getVaults", vaults);
         this.$store.state.Vaults.vaults = this.vaultProp
         // this.$emit('getVaultsOption', this.$store.state.Vaults.vaults)
@@ -84,11 +72,11 @@
       // trying to get activeKeep and activeVault for vaultkeep
       saveKeep(vault) {
         debugger
-        // let vaultId = this.vault.id
+        let vaultId = vault.id
         let keepData = {
 
-          keepId: this.$store.state.HomePage.keeps.id,
-          vaultId: this.vaults.id,
+          keepId: this.$store.dispatch("getKeepById", this.$route.params.keepId),
+          vaultId,
           userId: { type: Number }
         };
         // this.$emit('saveKeep', keepData)

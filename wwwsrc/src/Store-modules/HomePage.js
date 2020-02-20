@@ -82,10 +82,12 @@ export default {
 
       }
     },
-    async getKeepById({ commit, dispatch }, keepsId) {
+    async getKeepById({ commit, dispatch }, keepId) {
       try {
         debugger
-        let axiosRes = await api.get(keepsId)
+        let keep = keepId.id
+        let endPoint = `keeps/${keep}`;
+        let axiosRes = await api.get(endPoint)
         commit('updateViews', axiosRes.data)
       } catch (error) {
 
