@@ -1,9 +1,9 @@
 <template>
   <div class="keeps container-fluid">
-    <button v-on:click.once="getVaultsOption(vaults)">your Vaults</button>
+    <button v-on:click.once="getVaultsOption(vaults, keepProp)">your Vaults</button>
 
     <div v-for="vault in vaults" :vaults="vault" :key="vault._id">
-      <select v-on:click="saveKeep(vault)">
+      <select v-on:click="saveKeep(vault, keepProp)">
         <option>
           <ul v-on:click="saveKeep(vault)">{{vault.name}}</ul>
         </option>
@@ -14,16 +14,18 @@
 
 
 <script>
+  import Home from '../views/Home.vue'
   export default {
     name: "keepComp",
     mounted() {
 
     },
     props: {
-      // vaults: [],
-      keep: {
-        type: Object,
-      }
+      keepProp: {},
+      // keeps: {
+      //   id: Number,
+      //   type: Object,
+      // }
     },
     data() {
       return {
@@ -36,14 +38,10 @@
       };
     },
     computed: {
-      // vault() {
-      //   return this.$store.state.Vaults.activeVaults;
-      // },
       user() {
         return this.$store.state.user;
       },
       vaults() {
-        // this.$store.state.Vaults.vaults = this.vaults
         return this.$store.state.Vaults.vaults;
       },
       keeps() {
@@ -57,25 +55,19 @@
       },
 
       getVaultsOption(vaults) {
-        debugger
         this.$store.dispatch("getVaults", vaults);
         this.$store.state.Vaults.vaults = this.vaultProp
         // this.$emit('getVaultsOption', this.$store.state.Vaults.vaults)
         // vaults = this.vaultProp
         // this.$emit('getVaultsOption', this.vaultProp)
         this.vaultProp = []
-
-
-
-
       },
       // trying to get activeKeep and activeVault for vaultkeep
-      saveKeep(vault) {
+      saveKeep(vault, keepProp) {
         debugger
         let vaultId = vault.id
         let keepData = {
-
-          keepId: this.$store.dispatch("getKeepById", this.$route.params.keepId),
+          keepId: this.keepProp.id,
           vaultId,
           userId: { type: Number }
         };

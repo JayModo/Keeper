@@ -50,14 +50,14 @@ export default {
         console.error('actions', 'getVaultKeeps')
       }
     },
-    async saveKeep({ commit, dispatch }, vaultkeep) {
+    async saveKeep({ commit, dispatch }, keepData) {
       try {
         debugger
         // let endpoint = `${vaultkeep}`;
         let axiosRES = await api.post('');
         let vaultkeeps = axiosRES.data;
         let keep = vaultkeeps.find(vk => {
-          return vk.keepId == vaultkeep.keepId
+          return vk.keepId == keepData.keepId
         });
         if (keep) {
           return
