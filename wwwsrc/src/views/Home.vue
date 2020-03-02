@@ -41,7 +41,7 @@
 
 
 
-          <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keeps" />
+          <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keep" />
           <!-- <select v-model="value" @click="getVaultsOption(vaults)">
             <option value="Vaults.vaults" @click="addToVault(keep)">
               <ul>{{vaults}}</ul>
