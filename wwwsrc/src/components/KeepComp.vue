@@ -39,7 +39,7 @@
     },
     computed: {
       user() {
-        return this.$store.state.user;
+        return this.$store.state.Auth.user;
       },
       vaults() {
         return this.$store.state.Vaults.vaults;
@@ -69,7 +69,7 @@
         let keepData = {
           keepId: this.keepProp.id,
           vaultId,
-          userId: { type: Number }
+          userId: this.user.id
         };
         // this.$emit('saveKeep', keepData)
         this.$store.dispatch("saveKeep", keepData);

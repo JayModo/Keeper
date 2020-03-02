@@ -26,8 +26,8 @@ export default {
     vaultkeeps: []
   },
   mutations: {
-    setVaultKeeps(state, vaultkeeps) {
-      state.vaultkeeps = vaultkeeps;
+    setVaultKeeps(state, payload) {
+      state.vaultkeeps = payload;
     }
   },
   actions: {
@@ -35,7 +35,7 @@ export default {
       try {
         let axiosRES = await api.post('', vaultkeep)
         let newVaultKeep = axiosRES.data
-        dispatch('getVaultKeeps')
+        dispatch('setVaultKeeps')
       } catch (error) {
         console.error('actions', 'createVaultKeep')
       }
@@ -54,13 +54,9 @@ export default {
       try {
         debugger
         // let endpoint = `${vaultkeep}`;
-        let axiosRES = await api.post('');
-        let vaultkeeps = axiosRES.data;
-        let keep = vaultkeeps.find(vk => {
-          return vk.keepId == keepData.keepId
-        });
-        if (keep) {
-          return
+        let axiosRES = await api.post('', keepData);
+        if (axiosRES) {
+          dispatch("getVaultKeeps")
         }
 
         // endpoint = "";
