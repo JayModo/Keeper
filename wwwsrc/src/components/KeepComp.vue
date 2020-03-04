@@ -57,21 +57,17 @@
       getVaultsOption(vaults) {
         this.$store.dispatch("getVaults", vaults);
         this.$store.state.Vaults.vaults = this.vaultProp
-        // this.$emit('getVaultsOption', this.$store.state.Vaults.vaults)
-        // vaults = this.vaultProp
-        // this.$emit('getVaultsOption', this.vaultProp)
         this.vaultProp = []
       },
       // trying to get activeKeep and activeVault for vaultkeep
       saveKeep(vault, keepProp) {
         debugger
-        let vaultId = vault.id
+        let vaultId = vault
         let keepData = {
-          keepId: this.keepProp.id,
+          keepId: this.keepProp,
           vaultId,
-          userId: this.user.id
+          // userId: this.user.id
         };
-        // this.$emit('saveKeep', keepData)
         this.$store.dispatch("saveKeep", keepData);
       },
       deleteKeep(keep) {

@@ -1,5 +1,6 @@
 <template>
   <div class="vaultsview" v-if="vaultkeeps">
+
     <h1>{{activevault.name}}</h1>
     <nav class="navbar shadow rounded navbar-light bg-light">
       <a class="navbar-brand" href="#">
@@ -57,7 +58,7 @@
     async mounted() {
       debugger
       await this.$store.dispatch("getVaultById", this.$route.params.id);
-      this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
+      this.$store.dispatch("getVaultKeeps", this.$route.params.id);
     },
     components: {}
   }

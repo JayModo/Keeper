@@ -1,6 +1,6 @@
 <template>
   <div class="vault" v-if="vaultkeeps">
-    <h1>{{activevault.name}}</h1>
+    <h1>{{vault.name}}</h1>
     <div v-for="keep in vaultkeeps" :key="'vault-keep-'+keep.id">
       <h3>{{keep.name}}</h3>
       <img class="keep-img" :src="keep.img" alt />

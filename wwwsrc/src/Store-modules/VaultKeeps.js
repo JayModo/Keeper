@@ -23,11 +23,13 @@ let api = Axios.create({
 
 export default {
   state: {
-    vaultkeeps: []
+    vaultkeeps: [],
+    vaultkeep: {}
   },
   mutations: {
-    setVaultKeeps(state, payload) {
-      state.vaultkeeps = payload;
+    setVaultKeeps(state, vaultKeeps) {
+      debugger
+      state.vaultkeeps = vaultKeeps;
     }
   },
   actions: {
@@ -40,12 +42,16 @@ export default {
         console.error('actions', 'createVaultKeep')
       }
     },
-    async getVaultKeeps({ commit, rootState }) {
+    async getVaultKeeps({ commit, dispatch, rootState }) {
       try {
-        let endpoint = `${rootState.Vaults.activevault.id}`;
-        let axiosRES = await api.get(endpoint)
-        let vaultkeeps = axiosRES.data
-        commit('setVaultKeeps', vaultkeeps)
+        debugger
+        // let endpoint = `${rootState.VaultKeeps.vaultKeeps}`;
+        let axiosRES = await api.get("")
+        let vk = axiosRES.data
+        commit('setVaultKeeps', vk);
+
+        dispatch(vk)
+
       } catch (error) {
         console.error('actions', 'getVaultKeeps')
       }
@@ -53,10 +59,13 @@ export default {
     async saveKeep({ commit, dispatch }, keepData) {
       try {
         debugger
-        // let endpoint = `${vaultkeep}`;
-        let axiosRES = await api.post('', keepData);
+        let vKeeps = {
+          keepId: keepData.keepId.id,
+          vaultId: keepData.vaultId.id,
+        }
+        let axiosRES = await api.post('', vKeeps);
         if (axiosRES) {
-          dispatch("getVaultKeeps")
+          commit("setVaultKeeps", vKeeps)
         }
 
         // endpoint = "";

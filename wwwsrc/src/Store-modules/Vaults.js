@@ -81,27 +81,6 @@ export default {
     },
 
 
-
-    // async addVkeeps({ commit, dispatch }, keepsId) {
-    //   try {
-    //     debugger
-    //     let axiosRes = await api.post(`/vaultkeeps`, keepsId)
-    //     commit("setVaultKeeps", axiosRes.data)
-    //   } catch (error) {
-    //     console.error("vault store addkeeps() for vaults")
-    //   }
-    // },
-    async getVkeeps({ commit, dispatch }, vaultId) {
-      try {
-        let endpoint = `${vaultId}/keeps`;
-        let axiosRES = await api.get(endpoint);
-        commit('setKeepsByVaultId', axiosRES.data);
-      } catch (error) {
-        console.error(error)
-
-      }
-    },
-
     async getVaults({ commit, dispatch, state }) {
       try {
         let axiosRes = await api.get("vaults");
