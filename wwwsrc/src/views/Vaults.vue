@@ -58,7 +58,7 @@
       //   return this.$store.state.Vaults.activevault;
       // },
       vaultKeeps() {
-        return this.$store.state.Vaults.activevault;
+        return this.$store.state.VaultKeeps.vaultKeeps;
       },
       keeps(keepProp) {
         return this.$store.state.HomePage.keeps;
@@ -81,14 +81,12 @@
       },
 
       viewVault(vault) {
-        debugger
         this.$router.push({
           name: "VaultsView",
           params: { id: vault.id }
         });
       },
       deleteVaults(vaultsId) {
-        debugger
         if (vaultsId.userId != this.user.id) {
           // return alert("this is not yours to delete")
         }

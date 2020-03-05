@@ -1,7 +1,7 @@
 <template>
-  <div class="vaultsview" v-if="vaultkeeps">
+  <div class="vaultsview">
 
-    <h1>{{activevault.name}}</h1>
+    <h1 v-model="activevault">{{activeVault.name}}</h1>
     <nav class="navbar shadow rounded navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <router-link to="/">keeps</router-link>
@@ -9,13 +9,16 @@
         <router-link v-else :to="{name: 'login'}">Login</router-link>
       </a>
     </nav>
-    <h1>{{activevault.name}}</h1>
-    <div v-for="keep in vaultkeeps" :key="'vault-keep-'+keep.id">
-      <h3>{{keep.name}}</h3>
-      <img class="keep-img" :src="keep.img" alt />
-      <h4>{{keep.description}}</h4>
-      <div>keep count: {{keep.keeps}}</div>
-      <div>keep views: {{keep.views}}</div>
+    <div v-for="vaultKeep in vaultKeeps" :vaultKeeps="vaultKeep" :key="vaultKeeps.id">
+      <div>
+        <h3>{{vaultKeep.name}}</h3>
+        <img class="vaultKeep-img" :src="vaultKeep.img" alt />
+        <h4>{{vaultKeep.description}}</h4>
+        <div>keep count: {{vaultKeep.keeps}}</div>
+        <div>keep views: {{vaultKeep.views}}</div>
+        <button type="button" class="text-white m-1 btn btn-outline-light btn-sm"
+          @click="deleteVk(vaultKeep, activeVault)">delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +26,7 @@
 
 <script>
   export default {
-    name: 'activevault',
+    name: 'vaultsview',
     props: ["propvault"],
     data() {
       return {
@@ -33,19 +36,28 @@
     },
     computed: {
       activeVault() {
-        debugger
         return this.$store.state.Vaults.activevault;
       },
       vaultKeeps() {
-        return this.$store.vaultKeeps.vaultkeeps;
+        return this.$store.state.VaultKeeps.vaultkeeps;
       },
       user() {
         return this.$store.state.Auth.user;
       },
     },
     methods: {
-      viewVault() {
+      deleteVk(vaultKeep, activeVault) {
         debugger
+        let keepId = vaultKeep.id,
+          vaultId = this.activeVault.id
+        let vkData = {
+          keepId,
+          vaultId
+        };
+        this.$store.dispatch("deleteVaultKeep", vkData)
+      },
+      viewVault() {
+
         this.$router.push({
           name: "Vault",
           params: { id: this.propvault.id }
@@ -55,7 +67,7 @@
         this.$store.dispatch("logout");
       }
     },
-    async mounted() {
+    async mounted(activeVault) {
       debugger
       await this.$store.dispatch("getVaultById", this.$route.params.id);
       this.$store.dispatch("getVaultKeeps", this.$route.params.id);

@@ -30,7 +30,7 @@ export default {
   },
   mutations: {
     setactiveVault(state, activevault) {
-      debugger
+
       state.activevault = activevault
     },
     setKeepsByVaultId(state, vaultkeeps) {
@@ -49,7 +49,6 @@ export default {
   actions: {
     async getVaultById({ commit, dispatch }, payload) {
       try {
-        debugger
         let endpoint = `vaults/${payload}`;
         let axiosRES = await api.get(endpoint)
         commit('setactiveVault', axiosRES.data)
@@ -70,7 +69,7 @@ export default {
     },
     async deleteVaults({ dispatch, state }, vaultsId) {
       try {
-        debugger
+
         let vaultId = vaultsId.id
         let endPoint = `vaults/${vaultId}`;
         await api.delete(endPoint);

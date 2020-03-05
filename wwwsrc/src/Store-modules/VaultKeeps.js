@@ -28,7 +28,6 @@ export default {
   },
   mutations: {
     setVaultKeeps(state, vaultKeeps) {
-      debugger
       state.vaultkeeps = vaultKeeps;
     }
   },
@@ -42,23 +41,19 @@ export default {
         console.error('actions', 'createVaultKeep')
       }
     },
-    async getVaultKeeps({ commit, dispatch, rootState }) {
+    async getVaultKeeps({ commit, dispatch, rootState }, activeVault) {
       try {
         debugger
-        // let endpoint = `${rootState.VaultKeeps.vaultKeeps}`;
-        let axiosRES = await api.get("")
+        let endPoint = `${activeVault}`
+        let axiosRES = await api.get(endPoint)
         let vk = axiosRES.data
         commit('setVaultKeeps', vk);
-
-        dispatch(vk)
-
       } catch (error) {
         console.error('actions', 'getVaultKeeps')
       }
     },
     async saveKeep({ commit, dispatch }, keepData) {
       try {
-        debugger
         let vKeeps = {
           keepId: keepData.keepId.id,
           vaultId: keepData.vaultId.id,
@@ -78,10 +73,16 @@ export default {
     },
     async deleteVaultKeep({ commit, dispatch }, vaultkeep) {
       try {
-        let vaultkeepId = vaultkeep
-        let endPoint = `${vaultkeepId}`;
-        await api.delete(endPoint);
-        dispatch('getVaultKeeps')
+        debugger
+        let vkData = {
+
+          keepId: vaultkeep.keepId.id,
+          vaultId: vaultkeep.vaultId.id
+        }
+
+        // let endPoint = `${vaultId}`;
+        await api.put("", vaultkeep);
+        dispatch('getVaultKeeps', `${vkData}`)
       } catch (error) {
         alert('store-module vaultkeep.js actions deleteKeep()')
       }

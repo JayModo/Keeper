@@ -37,7 +37,7 @@
     },
     async mounted() {
       await this.$store.dispatch("getVaultById", this.$route.params.id);
-      this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
+      // this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
     },
     components: {}
   }
