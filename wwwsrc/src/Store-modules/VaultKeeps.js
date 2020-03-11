@@ -28,19 +28,17 @@ export default {
   },
   mutations: {
     setVaultKeep(state, vaultKeep) {
-      debugger
       state.vaultkeep = vaultKeep;
     },
 
     setVaultKeeps(state, vaultkeeps) {
-      debugger
       state.vaultkeeps = vaultkeeps;
     }
   },
   actions: {
     async getVaultKeepById({ commit, dispatch }, payload) {
       try {
-        debugger
+
         let vkData =
           `${payload.keepId} `
 
@@ -63,7 +61,7 @@ export default {
     },
     async getVaultKeeps({ commit, dispatch, rootState }, activeVault) {
       try {
-        debugger
+
         let endPoint = `${rootState.Vaults.activevault.id}`
         let axiosRES = await api.get(endPoint)
         let vk = axiosRES.data
@@ -74,7 +72,7 @@ export default {
     },
     async saveKeep({ commit, dispatch, state }, keepData) {
       try {
-        debugger
+
         let vKeeps = {
           keepId: keepData.keepId.id,
           vaultId: keepData.vaultId.id,
@@ -97,13 +95,11 @@ export default {
     },
     async deleteVaultKeep({ commit, dispatch }, vaultkeep) {
       try {
-        debugger
+
         let vkData = {
           keepId: vaultkeep.keepId,
           vaultId: vaultkeep.vaultId
         }
-        // this.vaultkeeps = vkData
-        // let endPoint = `${vaultId}`;
 
         let axiosRES = await api.put("", vkData)
         if (axiosRES) {

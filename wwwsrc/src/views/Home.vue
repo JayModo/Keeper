@@ -10,11 +10,7 @@
         <button class="btn btn-danger" v-if="user.id" @click="logout">logout</button>
         <router-link v-else :to="{name: 'login'}">Login</router-link>
         <router-link v-if="user.id!=null" to="/vaults">Vault</router-link>
-        <!-- <vaults v-bind:keepProp="keeps" /> -->
-        <!-- <vaults v-for="vault in vaults" :vaults="vaults" /> -->
-
       </a>
-
     </nav>
 
 
@@ -43,24 +39,16 @@
 
 
           <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keep" />
-          <!-- <select v-model="value" @click="getVaultsOption(vaults)">
-              <option value="Vaults.vaults" @click="addToVault(keep)">
-                <ul>{{vaults}}</ul>
-                
-              </option>
-            </select> -->
-
-
 
           <img class="btn" @click="openModal(keep)" :src="keep.img">
         </div>
-        <modal v-if="modalOpen" v-model="modalOpen" onclick.prevent="modalKeep">
+        <modal-view v-if="modalOpen" v-model="modalOpen" onclick.prevent="modalKeep">
           <img :src="keep.description" alt="">
           <h4 v-on:click="">Views {{keep.views}}</h4>
           <h5 class="card-title">{{keep.name}}</h5>
           <p>{{keep.description}}</p>
 
-        </modal>
+        </modal-view>
       </div>
 
     </div>
@@ -74,7 +62,7 @@
   import KeepComp from '../components/KeepComp'
   import vaultKeeps from '../components/VaultKeeps.vue'
   import Vaults from './Vaults.vue'
-  import Modal from '../components/Modal'
+  import ModalView from './ModalView.vue'
   export default {
     name: "home",
 
@@ -83,9 +71,6 @@
 
     },
     mounted() {
-      // let payloadKeeps = {
-      //   id: this.$route.params.id
-      // }
       this.$store.dispatch("getKeeps");
       this.$store.state.HomePage.keeps.forEach(keep => {
         let keepsId = keep.id
@@ -115,15 +100,12 @@
     },
     components: {
       Vaults,
-      Modal,
+      ModalView,
       vaultKeeps,
       KeepComp
 
     },
     computed: {
-      // keep() {
-      //   return this.$store.state.HomePage.keep
-      // },
       vaults() {
         return this.$store.state.Vaults.vaults;
 
@@ -153,26 +135,17 @@
 
 
       getVaultsOption(vaults) {
-        debugger
         this.vaults == vaults
         this.$store.state.Vaults.vaults == vaults
         return vaults
       },
-      saveKeep(keep) {
-        debugger
-
-        this.$store.dispatch("createVaultKeep", keep)
-      },
-
       AddToVault(keepsId) {
         this.$store.Vaults.dispatch(keepsId)
       },
       handleViews(views) {
 
       },
-
       openModal(keepsId) {
-        debugger
         this.modalOpen = !this.modalOpen;
         keepsId.views += 1
         this.$store.dispatch("updateViews", keepsId)
@@ -180,7 +153,6 @@
       },
 
       viewKeeps() {
-
         this.$store.dispatch("updateViews", keepsId)
       },
       deleteKeeps(keepsId) {
@@ -189,12 +161,6 @@
         }
         this.$store.dispatch("deleteKeeps", keepsId);
       },
-      // takeKeep(keepsId) {
-      //   debugger
-      //   this.$store.dispatch("getKeepById", keepsId)
-      // },
-
-
       addKeeps() {
         this.$store.dispatch("addKeeps", this.newKeep);
         this.newKeep = { name: "", description: "", img: "" }

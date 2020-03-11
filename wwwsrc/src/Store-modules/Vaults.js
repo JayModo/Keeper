@@ -69,7 +69,6 @@ export default {
     },
     async deleteVaults({ dispatch, state }, vaultsId) {
       try {
-        debugger
         let vaultId = vaultsId.id
         let endPoint = `vaults/${vaultId}`;
         await api.delete(endPoint);

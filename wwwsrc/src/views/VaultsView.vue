@@ -52,7 +52,7 @@
     },
     methods: {
       deleteVk(vaultKeep, activeVault) {
-        debugger
+
         this.vaultKeep
         let vkId = this.$store.state.VaultKeeps.vaultkeep.id
         let keepId = vaultKeep.id,
@@ -76,7 +76,7 @@
       }
     },
     async mounted(activeVault) {
-      debugger
+
       await this.$store.dispatch("getVaultById", this.$route.params.id);
       this.$store.dispatch("getVaultKeeps", this.$route.params.id);
     },
