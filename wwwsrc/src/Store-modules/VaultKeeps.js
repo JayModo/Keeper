@@ -27,11 +27,31 @@ export default {
     vaultkeep: {}
   },
   mutations: {
-    setVaultKeeps(state, vaultKeeps) {
-      state.vaultkeeps = vaultKeeps;
+    setVaultKeep(state, vaultKeep) {
+      debugger
+      state.vaultkeep = vaultKeep;
+    },
+
+    setVaultKeeps(state, vaultkeeps) {
+      debugger
+      state.vaultkeeps = vaultkeeps;
     }
   },
   actions: {
+    async getVaultKeepById({ commit, dispatch }, payload) {
+      try {
+        debugger
+        let vkData =
+          `${payload.keepId} `
+
+        let axiosRES = await api.get(vkData)
+        dispatch('deleteVaultKeep', axiosRES)
+
+      } catch (error) {
+
+      }
+    },
+
     async createVaultKeep({ dispatch }, vaultkeep) {
       try {
         let axiosRES = await api.post('', vaultkeep)
@@ -44,7 +64,7 @@ export default {
     async getVaultKeeps({ commit, dispatch, rootState }, activeVault) {
       try {
         debugger
-        let endPoint = `${activeVault}`
+        let endPoint = `${rootState.Vaults.activevault.id}`
         let axiosRES = await api.get(endPoint)
         let vk = axiosRES.data
         commit('setVaultKeeps', vk);
@@ -52,15 +72,19 @@ export default {
         console.error('actions', 'getVaultKeeps')
       }
     },
-    async saveKeep({ commit, dispatch }, keepData) {
+    async saveKeep({ commit, dispatch, state }, keepData) {
       try {
+        debugger
         let vKeeps = {
           keepId: keepData.keepId.id,
           vaultId: keepData.vaultId.id,
+
         }
-        let axiosRES = await api.post('', vKeeps);
+        let axiosRES = await api.post('', vKeeps)
         if (axiosRES) {
-          commit("setVaultKeeps", vKeeps)
+          state.vaultkeep = axiosRES.data
+          // vKeeps.id = axiosRES.data.id
+          commit("setVaultKeeps", state.vaultkeep)
         }
 
         // endpoint = "";
@@ -75,14 +99,18 @@ export default {
       try {
         debugger
         let vkData = {
-
-          keepId: vaultkeep.keepId.id,
-          vaultId: vaultkeep.vaultId.id
+          keepId: vaultkeep.keepId,
+          vaultId: vaultkeep.vaultId
         }
-
+        // this.vaultkeeps = vkData
         // let endPoint = `${vaultId}`;
-        await api.put("", vaultkeep);
-        dispatch('getVaultKeeps', `${vkData}`)
+
+        let axiosRES = await api.put("", vkData)
+        if (axiosRES) {
+          dispatch('getVaultKeeps', axiosRES)
+
+
+        }
       } catch (error) {
         alert('store-module vaultkeep.js actions deleteKeep()')
       }

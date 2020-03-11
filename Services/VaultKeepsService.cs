@@ -33,10 +33,9 @@ namespace Keepr.Services
 
     public string Delete(VaultKeeps vaultkeep)
     {
-
       VaultKeeps exists = _vkrepo.GetId(vaultkeep.VaultId, vaultkeep.KeepId);
       if (exists == null) { throw new Exception("Invalid Id"); }
-      _vkrepo.Delete(vaultkeep.Id);
+      _vkrepo.Delete(exists.Id);
       return "the VaultKeeps are no more";
     }
   }

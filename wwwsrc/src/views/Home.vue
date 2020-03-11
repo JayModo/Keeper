@@ -25,29 +25,30 @@
       <button class="btn btn-primary" type="submit">Create</button>
     </form>
 
-    <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
 
 
+    <div class="col">
 
-      <div class="col">
+
+      <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
+
         <div class="card" style="width: 16rem;">
-          <button v-if="user.id!=null" type="button" class=" m-1 btn btn-outline-light btn-sm"
-            @click="deleteKeeps(keep)">delete</button>
           <h5 class="card-title">{{keep.name}}</h5>
           <h3>views: {{keep.views}}</h3>
           <p class="card-text">{{keep.description}}</p>
-
+          <button v-if="user.id!=null" type="button" class=" m-1 btn btn-outline-light btn-sm"
+            @click="deleteKeeps(keep)">delete</button>
 
 
 
 
           <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keep" />
           <!-- <select v-model="value" @click="getVaultsOption(vaults)">
-            <option value="Vaults.vaults" @click="addToVault(keep)">
-              <ul>{{vaults}}</ul>
-
-            </option>
-          </select> -->
+              <option value="Vaults.vaults" @click="addToVault(keep)">
+                <ul>{{vaults}}</ul>
+                
+              </option>
+            </select> -->
 
 
 
@@ -60,11 +61,12 @@
           <p>{{keep.description}}</p>
 
         </modal>
-
       </div>
 
-
     </div>
+
+
+  </div>
   </div>
 </template>
 
@@ -161,11 +163,7 @@
 
         this.$store.dispatch("createVaultKeep", keep)
       },
-      // show(keep) {
-      //   debugger
 
-      //   this.$modal.show(keep)
-      // },
       AddToVault(keepsId) {
         this.$store.Vaults.dispatch(keepsId)
       },
@@ -186,16 +184,15 @@
         this.$store.dispatch("updateViews", keepsId)
       },
       deleteKeeps(keepsId) {
-        debugger
         if (keepsId.userId != this.user.id) {
           return alert("this is not yours to delete")
         }
         this.$store.dispatch("deleteKeeps", keepsId);
       },
-      takeKeep(keepsId) {
-        debugger
-        this.$store.dispatch("getKeepById", keepsId)
-      },
+      // takeKeep(keepsId) {
+      //   debugger
+      //   this.$store.dispatch("getKeepById", keepsId)
+      // },
 
 
       addKeeps() {
@@ -210,3 +207,6 @@
     }
   };
 </script>
+<style>
+
+</style>

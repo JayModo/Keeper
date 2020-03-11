@@ -1,4 +1,5 @@
 USE pinkeeper;
+--  DELETE FROM vaultkeeps WHERE vaultId="9"; 
 --  DROP TABLE vaultkeeps;
 -- CREATE TABLE user (
 --     id VARCHAR(255) NOT NULL,
@@ -70,7 +71,7 @@ USE pinkeeper;
 
 
 -- -- USE THIS TO CLEAN OUT YOUR DATABASE
--- DROP TABLE IF EXISTS vaultkeeps;
+--  DROP TABLE vaultkeeps;
 -- DROP TABLE IF EXISTS vaults;
      --  DROP TABLE keeps;
 -- DROP TABLE IF EXISTS users;

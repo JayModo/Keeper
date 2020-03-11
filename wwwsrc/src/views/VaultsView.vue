@@ -12,10 +12,10 @@
     <div v-for="vaultKeep in vaultKeeps" :vaultKeeps="vaultKeep" :key="vaultKeeps.id">
       <div>
         <h3>{{vaultKeep.name}}</h3>
+        {{vaultKeep.id}}
         <img class="vaultKeep-img" :src="vaultKeep.img" alt />
         <h4>{{vaultKeep.description}}</h4>
-        <div>keep count: {{vaultKeep.keeps}}</div>
-        <div>keep views: {{vaultKeep.views}}</div>
+
         <button type="button" class="text-white m-1 btn btn-outline-light btn-sm"
           @click="deleteVk(vaultKeep, activeVault)">delete</button>
       </div>
@@ -31,10 +31,15 @@
     data() {
       return {
         activevault: {},
-        vaultkeeps: []
+        vaultkeeps: [],
+        vaultkeep: {}
       }
     },
     computed: {
+      vaultKeep() {
+        return this.$store.state.VaultKeeps.vaultkeep
+      },
+
       activeVault() {
         return this.$store.state.Vaults.activevault;
       },
@@ -48,11 +53,14 @@
     methods: {
       deleteVk(vaultKeep, activeVault) {
         debugger
+        this.vaultKeep
+        let vkId = this.$store.state.VaultKeeps.vaultkeep.id
         let keepId = vaultKeep.id,
           vaultId = this.activeVault.id
         let vkData = {
+
           keepId,
-          vaultId
+          vaultId,
         };
         this.$store.dispatch("deleteVaultKeep", vkData)
       },
