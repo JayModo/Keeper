@@ -38,14 +38,12 @@ export default {
       state.keeps = payload
     },
     setKeep(state, payload) {
-      debugger
       state.keep = payload
     }
   },
   actions: {
     async deleteKeeps({ dispatch, state }, keepsId) {
       try {
-        debugger
         let keepId = keepsId.id
         let endPoint = `keeps/${keepId}`;
         await api.delete(endPoint);
@@ -60,21 +58,24 @@ export default {
 
       try {
         debugger
+        // keepsId.views += 1
+        keepsId = state.activeKeep
 
         let endPoint = `keeps/${keepsId.id}`
-        let axiosRes = await api.put(endPoint);
-        dispatch('setKeeps', axiosRes.data)
+        let axiosRes = await api.put(endPoint, keepsId);
+        commit('setKeep', axiosRes.data)
       } catch (error) {
-
+        alert('store-module homepage actions updateviews()')
       }
     },
-    async getKeepById({ commit, dispatch }, keepId) {
+    async getKeepById({ commit, dispatch, state }, keepId) {
       try {
         debugger
-        let keep = keepId.id
+        commit('setActiveKeep', keepId)
+        let keep = state.activeKeep.id
         let endPoint = `keeps/${keep}`;
         let axiosRes = await api.get(endPoint)
-        commit('updateViews', axiosRes.data)
+        dispatch('updateViews', axiosRes.data)
       } catch (error) {
 
       }
@@ -83,6 +84,7 @@ export default {
 
     async getKeeps({ commit, dispatch, state }) {
       try {
+        debugger
         let axiosRes = await api.get("keeps");
         let keeps = axiosRes.data;
         commit("setKeeps", keeps);

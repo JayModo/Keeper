@@ -23,7 +23,7 @@
 
 
 
-    <div class="col">
+    <div id="keepCard" class="col">
 
 
       <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
@@ -145,10 +145,11 @@
       handleViews(views) {
 
       },
-      openModal(keepsId) {
+      openModal(keepProp) {
+        debugger
         this.modalOpen = !this.modalOpen;
-        keepsId.views += 1
-        this.$store.dispatch("updateViews", keepsId)
+        keepProp.views += 1
+        this.$store.dispatch("getKeepById", keepProp)
 
       },
 
@@ -174,5 +175,11 @@
   };
 </script>
 <style>
+  #keepCard {
+    display: flex;
+  }
 
+  .card {
+    margin-left: 1rem;
+  }
 </style>

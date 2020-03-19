@@ -50,6 +50,7 @@ namespace Keepr.Services
       keep.Name = editKeep.Name;
       keep.Img = editKeep.Img;
       keep.Description = editKeep.Description;
+      keep.views = editKeep.views;
       keep.IsPrivate = editKeep.IsPrivate;
       _repo.Edit(keep);
       return keep;

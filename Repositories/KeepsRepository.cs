@@ -50,6 +50,7 @@ namespace Keepr.Repositories
       SET
       name = @Name,
       img = @Img,
+      views = @views,
       isPrivate = @IsPrivate,
       description = @Description
       WHERE id = @Id";

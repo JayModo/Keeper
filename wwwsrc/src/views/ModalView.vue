@@ -1,6 +1,7 @@
 <template>
   <div class="modal-view" v-show="value">
     <div class="container">
+      <div v-if="keepProp" :keeps="keepProp" :key="keepProp.id"></div>
       <div class="modal-content">
         <slot>
 
@@ -16,7 +17,7 @@
   import Home from '../views/Home'
   export default {
     props: {
-
+      keepProp: {},
       value: {},
     },
     name: 'modal-view',
