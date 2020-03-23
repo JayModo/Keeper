@@ -29,21 +29,16 @@
       <div v-for="keep in keeps" :keeps="keep" :key="keeps.id">
 
         <div class="card" style="width: 16rem;">
-          <h5 class="card-title">{{keep.name}}</h5>
+          <h5 class="card-title"> {{keep.name}}</h5>
           <h3>views: {{keep.views}}</h3>
           <p class="card-text">{{keep.description}}</p>
-          <button v-if="user.id!=null" type="button" class=" m-1 btn btn-outline-light btn-sm"
-            @click="deleteKeeps(keep)">delete</button>
-
-
-
 
           <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keep" />
-
           <img class="btn" @click="openModal(keep)" :src="keep.img">
+          <i class="far fa-trash-alt" v-if="user.id!=null" type="button" @click="deleteKeeps(keep)"> </i>
         </div>
         <modal-view v-if="modalOpen" v-model="modalOpen" onclick.prevent="modalKeep">
-          <img :src="keep.description" alt="">
+          <img :src="keep.img" alt="">
           <h4 v-on:click="">Views {{keep.views}}</h4>
           <h5 class="card-title">{{keep.name}}</h5>
           <p>{{keep.description}}</p>
@@ -146,7 +141,6 @@
 
       },
       openModal(keepProp) {
-        debugger
         this.modalOpen = !this.modalOpen;
         keepProp.views += 1
         this.$store.dispatch("getKeepById", keepProp)
@@ -175,11 +169,37 @@
   };
 </script>
 <style>
+  .card-title {
+    background-size: 20px;
+    background-image: url('/images/tack1.png');
+    background-repeat: no-repeat;
+    background-origin: border-box;
+  }
+
+  .fas {
+    color: rgb(43, 206, 181);
+  }
+
+  .navbar {
+    background-image: url('/images/cork-board.png');
+  }
+
+  .far {
+    color: red;
+  }
+
+  .home {
+    background-image: url('/images/cork-board.png');
+    background-repeat: repeat;
+    background-size: auto;
+  }
+
   #keepCard {
     display: flex;
   }
 
   .card {
+    background-image: url('/images/ricepaper.png');
     margin-left: 1rem;
   }
 </style>

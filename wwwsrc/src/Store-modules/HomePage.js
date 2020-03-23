@@ -57,10 +57,7 @@ export default {
     async updateViews({ commit, dispatch, state }, keepsId) {
 
       try {
-        debugger
-        // keepsId.views += 1
         keepsId = state.activeKeep
-
         let endPoint = `keeps/${keepsId.id}`
         let axiosRes = await api.put(endPoint, keepsId);
         commit('setKeep', axiosRes.data)
@@ -70,7 +67,6 @@ export default {
     },
     async getKeepById({ commit, dispatch, state }, keepId) {
       try {
-        debugger
         commit('setActiveKeep', keepId)
         let keep = state.activeKeep.id
         let endPoint = `keeps/${keep}`;
@@ -84,7 +80,6 @@ export default {
 
     async getKeeps({ commit, dispatch, state }) {
       try {
-        debugger
         let axiosRes = await api.get("keeps");
         let keeps = axiosRes.data;
         commit("setKeeps", keeps);

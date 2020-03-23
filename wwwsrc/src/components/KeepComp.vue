@@ -1,6 +1,6 @@
 <template>
   <div class="keeps container-fluid">
-    <button v-on:click.once="getVaultsOption(vaults, keepProp)">your Vaults</button>
+    <i class="far fa-share-square" type="button" v-on:click.once="getVaultsOption(vaults, keepProp)"> </i>
 
     <div v-for="vault in vaults" :vaults="vault" :key="vault._id">
       <select v-on:click="saveKeep(vault, keepProp)">
@@ -79,5 +79,7 @@
 
 
 <style scoped>
-
+  .far {
+    color: blue;
+  }
 </style>
