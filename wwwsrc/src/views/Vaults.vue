@@ -81,6 +81,7 @@
       },
 
       viewVault(vault) {
+        debugger
         this.$router.push({
           name: "VaultsView",
           params: { id: vault.id }

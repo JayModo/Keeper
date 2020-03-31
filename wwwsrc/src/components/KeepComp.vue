@@ -1,12 +1,10 @@
 <template>
   <div class="keeps container-fluid">
-    <i class="far fa-share-square" type="button" v-on:click.once="getVaultsOption(vaults, keepProp)"> </i>
-
-    <div v-for="vault in vaults" :vaults="vault" :key="vault._id">
-      <select v-on:click="saveKeep(vault, keepProp)">
-        <option>
-          <ul v-on:click="saveKeep(vault)">{{vault.name}}</ul>
-        </option>
+    <button type="button" v-on:click.once="getVaultsOption(vaults, keepProp)"> your vaults </button>
+    <div>
+      <!-- value is being passed and a array of objects to saveKeep in methods -->
+      <select v-on:change="saveKeep($event.target.value, keepProp)">
+        <option v-for="vault in vaults" :value="vault" :vaults="vault" :key="vault._id">{{vault.name}}</option>
       </select>
     </div>
   </div>
@@ -30,7 +28,7 @@
     data() {
       return {
         vaultProp: {},
-        value: [],
+        value: {},
         newVaultId: "",
         // newKeep: {
         //   description: ""
@@ -60,9 +58,9 @@
         this.vaultProp = []
       },
       // trying to get activeKeep and activeVault for vaultkeep
-      saveKeep(vault, keepProp) {
+      saveKeep(value, keepProp) {
         debugger
-        let vaultId = vault
+        let vaultId = value
         let keepData = {
           keepId: this.keepProp,
           vaultId,

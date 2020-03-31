@@ -34,15 +34,18 @@
           <p class="card-text">{{keep.description}}</p>
 
           <keepComp v-on:getVaultsOption="showVaults(value)" v-bind:keepProp="keep" />
-          <img class="btn" @click="openModal(keep)" :src="keep.img">
-          <i class="far fa-trash-alt" v-if="user.id!=null" type="button" @click="deleteKeeps(keep)"> </i>
-        </div>
-        <modal-view v-if="modalOpen" v-model="modalOpen" onclick.prevent="modalKeep">
-          <img :src="keep.img" alt="">
-          <h4 v-on:click="">Views {{keep.views}}</h4>
-          <h5 class="card-title">{{keep.name}}</h5>
-          <p>{{keep.description}}</p>
 
+          <img class="btn" @click="openModal(keep)" :src="keep.img">
+          <button class="fas fa-trash-alt" v-if="user.id!=null" type="button" @click="deleteKeeps(keep)"> Delete <i
+              class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+
+        <modal-view v-if="modalOpen" v-bind:activeKeep="activeKeep" v-model="modalOpen" onclick.prevent="modalKeep">
+          <img :src="keep.img" alt="">
+          <h4 v-on:click="">Views {{activeKeep.views}}</h4>
+          <h5 class="card-title">{{activeKeep.name}}</h5>
+          <p>{{activeKeep.description}}</p>
         </modal-view>
       </div>
 
@@ -79,7 +82,7 @@
         vault: [{}],
         selected: '',
         modalKeep: {
-          Keep: { type: Object },
+          keep: { type: Object },
         },
         modalOpen: false,
         newKeep: {
@@ -101,6 +104,9 @@
 
     },
     computed: {
+      activeKeep() {
+        return this.$store.state.HomePage.activeKeep
+      },
       vaults() {
         return this.$store.state.Vaults.vaults;
 
@@ -141,6 +147,11 @@
 
       },
       openModal(keepProp) {
+        debugger
+        this.$router.push({
+          name: "keepId",
+          params: { id: keepProp.id }
+        });
         this.modalOpen = !this.modalOpen;
         keepProp.views += 1
         this.$store.dispatch("getKeepById", keepProp)
@@ -185,7 +196,7 @@
   }
 
   .far {
-    color: red;
+    background-image: url('/images/trash-can.jpg');
   }
 
   .home {

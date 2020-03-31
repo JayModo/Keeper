@@ -1,11 +1,17 @@
 <template>
   <div class="modal-view" v-show="value">
     <div class="container">
-      <div v-if="keepProp" :keeps="keepProp" :key="keepProp.id"></div>
+      <div v-if="activeKeep" :key="activeKeep.id"></div>
       <div class="modal-content">
         <slot>
 
+          <div v-model="activeKeep">
+            <h3>{{activeKeep.name}}</h3>}
+            <img class="activeKeep-img" :src="activeKeep.img" alt />
+            <h4>{{activeKeep.description}}</h4>
+          </div>
         </slot>
+
       </div>
     </div>
     <button @click.prevent="cancel" class="mt-3 border-b border-teal font-semibold">Close</button>
@@ -23,14 +29,19 @@
     name: 'modal-view',
     data() {
       return {
-        openModal: true
+        openModal: true,
+        activekeep: {}
       }
     },
 
 
     components: {
     },
-    computed: {},
+    computed: {
+      activeKeep() {
+        return this.$store.state.HomePage.activeKeep
+      }
+    },
     methods: {
 
 
@@ -40,6 +51,8 @@
       }
     },
     mounted() {
+      debugger
+      this.$store.dispatch("getKeepById", this.activeKeep);
       this.isVisible = this.showModal
     }
   }

@@ -8,7 +8,8 @@ import Login from './views/Login.vue'
 import Vaults from './views/Vaults.vue'
 // @ts-ignore
 import VaultsView from './views/VaultsView.vue'
-
+// @ts-ignore
+import ModalView from './views/ModalView.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,15 +40,9 @@ export default new Router({
     //   component: ViewKeep
     // },
     {
-      path: '/keeps/:keepId',
+      path: '/keeps/:id',
       name: 'keepId',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: function () {
-        // @ts-ignore
-        return import(/* webpackChunkName: "keep" */ './Store-modules/HomePage.js')
-      }
+      component: ModalView
 
     }
 

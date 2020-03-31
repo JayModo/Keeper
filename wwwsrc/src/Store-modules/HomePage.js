@@ -32,6 +32,7 @@ export default {
       state.vaults = payload
     },
     setActiveKeep(state, payload) {
+      debugger
       state.activeKeep = payload
     },
     setKeeps(state, payload) {
@@ -67,6 +68,7 @@ export default {
     },
     async getKeepById({ commit, dispatch, state }, keepId) {
       try {
+        debugger
         commit('setActiveKeep', keepId)
         let keep = state.activeKeep.id
         let endPoint = `keeps/${keep}`;
